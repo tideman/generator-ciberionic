@@ -11,77 +11,77 @@ module.exports = {
             value: 'cordova-plugin-whitelist',
             name: 'cordova-plugin-whitelist',
             checked: true
-        }, {
-            value: 'cordova-plugin-device',
-            name: 'cordova-plugin-device',
+        },{
+            value: 'cordova-plugin-console',
+            name: 'cordova-plugin-console',
             checked: true
         }, {
             value: 'ionic-plugin-keyboard',
             name: 'ionic-plugin-keyboard',
             checked: true
         }, {
-            value: 'org.apache.cordova.splashscreen',
-            name: 'org.apache.cordova.splashscreen',
+            value: 'cordova-plugin-splashscreen',
+            name: 'cordova-plugin-splashscreen',
             checked: false
         }, {
-            value: 'org.apache.cordova.statusbar',
-            name: 'org.apache.cordova.statusbar',
+            value: 'cordova-plugin-statusbar',
+            name: 'cordova-plugin-statusbar',
             checked: false
         }, {
-            value: 'org.apache.cordova.battery-status',
-            name: 'org.apache.cordova.battery-status',
+            value: 'cordova-plugin-battery-status',
+            name: 'cordova-plugin-battery-status',
             checked: false
         }, {
-            value: 'org.apache.cordova.network-information',
-            name: 'org.apache.cordova.network-information',
+            value: 'cordova-plugin-network-information',
+            name: 'cordova-plugin-network-information',
             checked: false
         }, {
-            value: 'org.apache.cordova.device-motion',
-            name: 'org.apache.cordova.device-motion',
+            value: 'cordova-plugin-device-motion',
+            name: 'cordova-plugin-device-motion',
             checked: false
         }, {
-            value: 'org.apache.cordova.device-orientation',
-            name: 'org.apache.cordova.device-orientation',
+            value: 'cordova-plugin-geolocation',
+            name: 'cordova-plugin-geolocation',
             checked: false
         }, {
-            value: 'org.apache.cordova.geolocation',
-            name: 'org.apache.cordova.geolocation',
+            value: 'cordova-plugin-device-orientation',
+            name: 'cordova-plugin-device-orientation',
             checked: false
         }, {
-            value: 'org.apache.cordova.camera',
-            name: 'org.apache.cordova.camera',
+            value: 'https://github.com/apache/cordova-plugin-camera.git',
+            name: 'cordova-plugin-camera',
             checked: false
         }, {
-            value: 'org.apache.cordova.media-capture',
-            name: 'org.apache.cordova.media-capture',
+            value: 'cordova-plugin-media-capture',
+            name: 'cordova-plugin-media-capture',
             checked: false
         }, {
-            value: 'org.apache.cordova.media',
-            name: 'org.apache.cordova.media',
+            value: 'cordova-plugin-media',
+            name: 'cordova-plugin-media',
             checked: false
         }, {
-            value: 'org.apache.cordova.file',
-            name: 'org.apache.cordova.file',
+            value: 'cordova-plugin-file',
+            name: 'cordova-plugin-file',
             checked: false
         }, {
-            value: 'org.apache.cordova.file-transfer',
-            name: 'org.apache.cordova.file-transfer',
+            value: 'cordova-plugin-file-transfer',
+            name: 'cordova-plugin-file-transfer',
             checked: false
         }, {
-            value: 'org.apache.cordova.dialogs',
-            name: 'org.apache.cordova.dialogs',
+            value: 'cordova-plugin-dialogs',
+            name: 'cordova-plugin-dialogs',
             checked: false
         }, {
-            value: 'org.apache.cordova.vibration',
-            name: 'org.apache.cordova.vibration',
+            value: 'cordova-plugin-vibration',
+            name: 'cordova-plugin-vibration',
             checked: false
         }, {
-            value: 'org.apache.cordova.contacts',
-            name: 'org.apache.cordova.contacts',
+            value: 'cordova-plugin-contacts',
+            name: 'cordova-plugin-contacts',
             checked: false
         }, {
-            value: 'org.apache.cordova.inappbrowser',
-            name: 'org.apache.cordova.inappbrowser',
+            value: 'cordova-plugin-inappbrowser',
+            name: 'cordova-plugin-inappbrowser',
             checked: false
         }, {
             value: 'https://github.com/nheezemans/touchid.git',

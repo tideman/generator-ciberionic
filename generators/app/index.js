@@ -5,7 +5,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var mout = require('mout');
 var cordova = require('cordova');
-var wiring = require("html-wiring")
+var wiring = require("html-wiring");
 var _ = require('underscore.string');
 var utils = require('../utils');
 
@@ -86,7 +86,7 @@ module.exports = yeoman.Base.extend({
             // Removes thumbnail cache files
             var invisibleFiles = ['Thumbs.db', '.DS_Store'];
             invisibleFiles.forEach(function (filename) {
-                var file = path.join(process.cwd(), filename)
+                var file = path.join(process.cwd(), filename);
                 if (fs.existsSync(file)) {
                     fs.unlinkSync(file);
                 }
@@ -101,14 +101,8 @@ module.exports = yeoman.Base.extend({
             this.log('packageFiles');
             //this.template('common/_bower.json', 'bower.json');
             //this.template('common/_bowerrc', '.bowerrc');
-            try {
-                this.template('common/_package.json', 'package.json');
-                this.template('common/_gulpfile.js', 'Gulpfile.js');
-            }
-            catch(err) {
-                this.log(err);
-            }
-
+            this.template('common/_package.json', 'package.json');
+            this.template('common/_gulpfile.js', 'Gulpfile.js');
             //this.template('common/_gitignore', '.gitignore');
         }
     },
@@ -118,9 +112,9 @@ module.exports = yeoman.Base.extend({
             var done = this.async();
             cordova.create('.', this.appId, this.appName, function (error) {
                 if (error) {
-                    console.log(chalk.yellow(error.message + ': Skipping `cordova create`'));
+                    this.log(chalk.yellow(error.message + ': Skipping `cordova create`'));
                 } else {
-                    console.log(chalk.yellow('Created a new Cordova project with name "' + this.appName + '" and id "' + this.appId + '"'));
+                    this.log(chalk.yellow('Created a new Cordova project with name "' + this.appName + '" and id "' + this.appId + '"'));
                 }
                 done();
             }.bind(this));
@@ -131,13 +125,14 @@ module.exports = yeoman.Base.extend({
             //console.log(chalk.yellow('Or install plugins direct from source: ') + chalk.green('grunt plugin:add:https://github.com/apache/cordova-plugin-console.git\n'));
             this.log('InstallPlugins');
             if (this.plugins.length > 0) {
-                console.log(chalk.yellow('Installing selected Cordova plugins, please wait.'));
+                this.log(chalk.yellow('Installing selected Cordova plugins, please wait.'));
 
                 // Turns out plugin() doesn't accept a callback so we try/catch instead
                 try {
                     cordova.plugin('add', this.plugins);
+                    this.log('plug-ins added');
                 } catch (e) {
-                    console.log(e);
+                    this.log(e);
                     this.log.error(chalk.red('Please run `yo ionic` in an empty directory, or in that of an already existing cordova project.'));
                     process.exit(1);
                 }

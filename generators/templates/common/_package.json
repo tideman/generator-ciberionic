@@ -48,5 +48,11 @@
   },
   "scripts": {
     "gulp": "./node_modules/.bin/gulp"
-  }
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-keyboard"
+  ]
 }
