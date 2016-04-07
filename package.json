@@ -20,7 +20,12 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
-    "yeoman-generator": "^0.22.0"
+    "cordova": "6.1.1",
+    "html-wiring": "1.2.0",
+    "mout": "1.0.0",
+    "q": "1.4.1",
+    "underscore.string": "3.3.4",
+    "yeoman-generator": "0.22.5"
   },
   "devDependencies": {
     "yeoman-test": "^1.0.0",
