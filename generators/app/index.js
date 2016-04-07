@@ -6,7 +6,8 @@ var chalk = require('chalk');
 var mout = require('mout');
 var cordova = require('cordova');
 var wiring = require("html-wiring");
-var _ = require('underscore.string');
+var _ = require("lodash");
+var s = require('underscore.string');
 var utils = require('../utils');
 
 var appPath = path.join(process.cwd(), 'app');
@@ -43,7 +44,7 @@ module.exports = yeoman.Base.extend({
 
             this.prompt(prompts, function (props) {
                 this.appName = props.appName;
-                this.ngModulName = _.classify(this.appName);
+                this.ngModulName = s.classify(this.appName);
                 this.userName = props.userName;
                 this.userEmail = props.userEmail;
                 done();
@@ -55,7 +56,7 @@ module.exports = yeoman.Base.extend({
                 type: 'input',
                 name: 'appId',
                 message: 'The app id?',
-                default: 'com.' + _.classify(this.userName).toLowerCase() + '.' + _.classify(this.appName).toLowerCase()
+                default: 'com.' + s.classify(this.userName).toLowerCase() + '.' + s.classify(this.appName).toLowerCase()
             }], function (props) {
                 this.appId = props.appId;
                 done();
@@ -66,6 +67,20 @@ module.exports = yeoman.Base.extend({
             //this.log(utils.plugins);
             this.prompt(utils.plugins.prompts, function (props) {
                 this.plugins = props.plugins;
+                done();
+            }.bind(this));
+        },
+        askForStarter: function askForStarter() {
+            var done = this.async();
+            this.log('starter');
+            this.prompt([{
+                type: 'list',
+                name: 'starter',
+                message: 'Which starter template would you like to use?',
+                choices: _.pluck(utils.starters.templates, 'name'),
+                default: 0
+            }], function (props) {
+                this.starter = _.find(utils.starters.templates, { name: props.starter });
                 done();
             }.bind(this));
         }
@@ -99,8 +114,8 @@ module.exports = yeoman.Base.extend({
 
         packageFiles: function packageFiles() {
             this.log('packageFiles');
-            //this.template('common/_bower.json', 'bower.json');
-            //this.template('common/_bowerrc', '.bowerrc');
+            this.template('common/_bower.json', 'bower.json');
+            this.template('common/_bowerrc', '.bowerrc');
             this.template('common/_package.json', 'package.json');
             this.template('common/_gulpfile.js', 'Gulpfile.js');
             //this.template('common/_gitignore', '.gitignore');
@@ -110,6 +125,8 @@ module.exports = yeoman.Base.extend({
         cordovaInit: function cordovaInit() {
             this.log('CorodvaInit');
             var done = this.async();
+            this.log('appId:', this.appId);
+            this.log('appName:', this.appName)
             cordova.create('.', this.appId, this.appName, function (error) {
                 if (error) {
                     this.log(chalk.yellow(error.message + ': Skipping `cordova create`'));
@@ -137,10 +154,36 @@ module.exports = yeoman.Base.extend({
                     process.exit(1);
                 }
             }
+        },
+        installStarter: function installStarter() {
+            this.log(chalk.yellow('Installing starter template. Please wait'));
+            var done = this.async();
+
+            var callback = function (error, remote) {
+                if (error) {
+                    done(error);
+                }
+
+                // Template remote initialization: Copy from remote root folder (.) to working directory (/app)
+                remote.directory('.', 'app');
+
+                this.starterCache = remote.cachePath;
+                done();
+            }.bind(this);
+
+            if (this.starter && this.starter.path) {
+                this.log(chalk.bgYellow(chalk.black('WARN')) +
+                    chalk.magenta(' Getting the template from a local path.  This should only be used for developing new templates.'));
+                this.remoteDir(this.starter.path, callback);
+            } else if (this.starter.url) {
+                this.remote(this.starter.url, callback, true);
+            } else {
+                this.remote(this.starter.user, this.starter.repo, 'master', callback, true);
+            }
         }
     },
 
-    install: function () {
-        this.installDependencies();
-    }
+    //install: function () {
+    //    this.installDependencies();
+    //}
 });
