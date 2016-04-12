@@ -99,31 +99,29 @@ module.exports = yeoman.Base.extend({
             //this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../package.json')));
         },
 
-        //setupEnv: function setupEnv() {
-        //    this.log('Setup Env');
-        //    // Removes thumbnail cache files
-        //    var invisibleFiles = ['Thumbs.db', '.DS_Store'];
-        //    invisibleFiles.forEach(function (filename) {
-        //        var file = path.join(process.cwd(), filename);
-        //        if (fs.existsSync(file)) {
-        //            fs.unlinkSync(file);
-        //        }
-        //    });
-        //    // Copies the contents of the generator example app
-        //    // directory into your users new application path
-        //    this.sourceRoot(path.join(__dirname, '../templates/'));
-        //   // this.directory('common/root', '.', true);
-        //},
+        setupEnv: function setupEnv() {
+            this.log('Setup Env');
+            // Removes thumbnail cache files
+            var hidden_files = ['Thumbs.db', '.DS_Store'];
 
-        //packageFiles: function packageFiles() {
-        //    this.log('packageFiles');
-        //    this.template('common/_bower.json', 'bower.json');
-        //    this.template('common/_bowerrc', '.bowerrc');
-        //    this.template('common/_package.json', 'package.json');
-        //    this.template('common/_gulpfile.js', 'Gulpfile.js');
-        //    this.template('common/_config.xml', 'config.xml');
-        //    //this.template('common/_gitignore', '.gitignore');
-        //}
+            fs.readdir('.', function (err, files) {
+                hidden_files = hidden_files.concat(files.filter(function (item) {
+                    return /^\./.test(item)
+                }));
+                hidden_files.forEach(function (filename) {
+                    var file = path.join(process.cwd(), filename);
+                    if (fs.existsSync(file)) {
+                        fs.unlinkSync(file);
+                    }
+
+                });
+            });
+
+            // Copies the contents of the generator example app
+            // directory into your users new application path
+            //this.sourceRoot(path.join(__dirname, '../templates/'));
+            // this.directory('common/root', '.', true);
+        },
     },
     writing: {
         cordovaInit: function cordovaInit() {
@@ -170,7 +168,6 @@ module.exports = yeoman.Base.extend({
                 else console.log('created app folder');
             });
 
-            //fs.unlinkSync(process.cwd() + '/config.xml');
             this.fs.copyTpl(
                 this.templatePath('_config.xml'),
                 this.destinationPath('./config.xml'),
