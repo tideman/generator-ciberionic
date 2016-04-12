@@ -14,6 +14,11 @@ module.exports = {
       name: 'Blank',
       user: 'driftyco',
       repo: 'ionic-starter-blank'
+    },
+    {
+      name: 'Ciber Ionic Starter',
+      user: 'tideman',
+      repo: 'ionic-starter-ciber'
     }
   ]
 };

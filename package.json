@@ -24,6 +24,7 @@
     "html-wiring": "1.2.0",
     "mout": "1.0.0",
     "q": "1.4.1",
+    "rmdir": "1.2.0",
     "underscore.string": "3.3.4",
     "yeoman-generator": "0.22.5"
   },
