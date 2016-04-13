@@ -2,10 +2,6 @@
         'use strict';
 
         angular
-            .module('common.models', [
-                'gdi2290.crypto-md5'
-            ])
-
-        ;
+            .module('common.models', []);
 
 })(); // End Strict

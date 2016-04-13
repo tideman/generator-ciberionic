@@ -12,9 +12,9 @@
     .module('<%= ngModulName %>.dashboard')
     .controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = [ '$ionicLoading', '$scope', 'PurchaseOrder' ];
+  DashboardCtrl.$inject = [ '$ionicLoading', '$scope','$timeout'];
 
-  function DashboardCtrl( $ionicLoading, $scope, PurchaseOrder ) {
+  function DashboardCtrl( $ionicLoading, $scope, $timeout) {
     var dashboard = this;
     dashboard.idSelectedTable = null;
     dashboard.lastupdate = false;
@@ -27,16 +27,7 @@
       $ionicLoading.show({
         template: '<ion-spinner icon="spiral"></ion-spinner>'
       });
-      PurchaseOrder.getAllPurchaseOrders().then(function(purchaseOrders){
-        dashboard.lastupdate = new Date();
-        dashboard.orders = purchaseOrders;
-        // console.log('orders: ', dashboard.orders);
-      }, function(errormessage) {
-        console.log('getAllPurchaseOrders Error: ');
-        console.log( errormessage );
-      }).finally(function(){
-        $ionicLoading.hide();
-      });
+      $timeout($ionicLoading.hide(), 3000);
 
     }
 
@@ -50,15 +41,7 @@
     };
 
     dashboard.doRefresh = function(){
-      PurchaseOrder.getAllPurchaseOrders().then(function(purchaseOrders){
-        dashboard.lastupdate = new Date();
-        dashboard.orders = purchaseOrders;
-        console.log('order: ', dashboard.orders);
-      }, function(errormessage) {
-        console.log('getAllPurchaseOrders Error: ', errormessage);
-      }).finally(function(){
-        $scope.$broadcast('scroll.refreshComplete');
-      });
+      console.log('Do refresh');
     };
 
   }

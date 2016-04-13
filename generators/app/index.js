@@ -230,7 +230,7 @@ module.exports = yeoman.Base.extend({
             );
             this.fs.copyTpl(
                 this.templatePath('components/core/_core.constants.js'),
-                this.destinationPath('app/core/core.contstants.js'),
+                this.destinationPath('app/core/core.constants.js'),
                 { ngModulName: s.classify(this.appName)}
             );
             this.fs.copyTpl(

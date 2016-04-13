@@ -16,6 +16,7 @@ var runSequence = require('run-sequence');
 var merge = require('merge-stream');
 var ripple = require('ripple-emulator');
 var wiredep = require('wiredep');
+var order = require('gulp-order');
 
 /**
  * Parse arguments
@@ -111,36 +112,35 @@ gulp.task('scripts', function() {
   // prepare angular template cache from html templates
   // (remember to change appName var to desired module name)
   var templateStream = gulp
-    .src('**/*.html', { cwd: 'app/templates'})
-    .pipe(plugins.angularTemplatecache('templates.js', {
-      root: 'templates/',
-      module: appName,
-      htmlmin: build && minifyConfig
-    }));
+      .src('**/*.html', { cwd: 'app'})
+      .pipe(plugins.angularTemplatecache('templates.js', {
+        module: appName,
+        htmlmin: build && minifyConfig
+      }));
 
   var scriptStream = gulp
-    .src(['templates.js', 'app.js', '**/*.js'], { cwd: 'app/scripts' })
+      .src(['templates.js', 'app.js', '**/*.js'], { cwd: 'app' })
 
-    .pipe(plugins.if(!build, plugins.changed(dest)));
+      .pipe(plugins.if(!build, plugins.changed(dest)));
 
   return streamqueue({ objectMode: true }, scriptStream, templateStream)
-    .pipe(plugins.if(build, plugins.ngAnnotate()))
-    .pipe(plugins.if(stripDebug, plugins.stripDebug()))
-    .pipe(plugins.if(build, plugins.concat('app.js')))
-    .pipe(plugins.if(build, plugins.uglify()))
-    .pipe(plugins.if(build && !emulate, plugins.rev()))
+      .pipe(plugins.if(build, plugins.ngAnnotate()))
+      .pipe(plugins.if(stripDebug, plugins.stripDebug()))
+      .pipe(plugins.if(build, plugins.concat('app.js')))
+      .pipe(plugins.if(build, plugins.uglify()))
+      .pipe(plugins.if(build && !emulate, plugins.rev()))
 
-    .pipe(gulp.dest(dest))
+      .pipe(gulp.dest(dest))
 
-    .on('error', errorHandler);
+      .on('error', errorHandler);
 });
 
 // copy fonts
 gulp.task('fonts', function() {
   return gulp
-    .src(['app/fonts/*.*', 'bower_components/ionic/release/fonts/*.*'])
+    .src(['app/fonts/*.*', 'bower_components/ionic/fonts/*.*'])
 
-    .pipe(gulp.dest(path.join(targetDir, 'fonts')))
+    .pipe(gulp.dest(path.join(targetDir, 'assets/fonts')))
 
     .on('error', errorHandler);
 });
@@ -176,7 +176,7 @@ gulp.task('images', function() {
 // lint js sources based on .jshintrc ruleset
 gulp.task('jsHint', function(done) {
   return gulp
-    .src('app/scripts/**/*.js')
+    .src('app/**/*.js')
     .pipe(plugins.jshint())
     .pipe(plugins.jshint.reporter(stylish))
 
@@ -203,7 +203,7 @@ gulp.task('vendor', function() {
 gulp.task('index', ['jsHint', 'scripts'], function() {
 
   // build has a '-versionnumber' suffix
-  var cssNaming = 'assets/csss/main*';
+  var cssNaming = 'assets/css/main*';
 
   // injects 'src' into index.html at position 'tag'
   var _inject = function(src, tag) {
@@ -218,7 +218,27 @@ gulp.task('index', ['jsHint', 'scripts'], function() {
   // in development mode, it's better to add each file seperately.
   // it makes debugging easier.
   var _getAllScriptSources = function() {
-    var scriptStream = gulp.src(['scripts/app.js', 'scripts/**/*.js'], { cwd: targetDir });
+    var scriptStream = gulp.src('scripts/**/*.js', { cwd: targetDir }).pipe(order([
+      "core/core.module.js",
+      "core/core.constants.js",
+      "core/core.config.js",
+      "core/core.route.js",
+      "layout/layout.module.js",
+      "layout/layout.config.js",
+      "layout/layout.route.js",
+      "layout/layout.controller.js",
+      "common/services/app-storage/app-storage.module.js",
+      "common/services/app-storage/app-storage.constants.js",
+      "common/services/app-storage/app-storage.service.js",
+      "dashboard/dashboard.module.js",
+      "dashboard/dashboard.config.js",
+      "dashboard/dashboard.route.js",
+      "dashboard/dashboard.controller.js",
+      "common/models/models.module.js",
+      "common/models/services.module.js",
+      "app.modules.js",
+      "**/*.js"
+    ]));
     return streamqueue({ objectMode: true }, scriptStream);
   };
 

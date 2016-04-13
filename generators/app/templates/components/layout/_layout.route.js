@@ -10,7 +10,7 @@
     $stateProvider
       .state('app', {
         url: '/app',
-        abstract: true,
+        //abstract: true,
         templateUrl: 'layout/layout.html',
         controller: 'LayoutCtrl',
         controllerAs: 'layout'
