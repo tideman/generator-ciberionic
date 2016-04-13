@@ -1,1 +1,0 @@
-# Library files from <%= appName %>

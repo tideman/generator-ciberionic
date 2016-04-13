@@ -198,27 +198,27 @@ module.exports = yeoman.Base.extend({
 
             this.directory('scss', 'app/scss', true);
 
-            //ASSETS
-            this.fs.copyTpl(
-                this.templatePath('assets/js/README.md'),
-                this.destinationPath('app/assets/js/README.md'), {
-                    appName: this.appName
-                }
-            );
-
-            this.fs.copyTpl(
-                this.templatePath('assets/css/README.md'),
-                this.destinationPath('app/assets/css/README.md'), {
-                    appName: this.appName
-                }
-            );
-
-            this.fs.copyTpl(
-                this.templatePath('assets/lib/README.md'),
-                this.destinationPath('app/assets/lib/README.md'), {
-                    appName: this.appName
-                }
-            );
+            ////ASSETS
+            //this.fs.copyTpl(
+            //    this.templatePath('assets/js/README.md'),
+            //    this.destinationPath('app/assets/js/README.md'), {
+            //        appName: this.appName
+            //    }
+            //);
+            //
+            //this.fs.copyTpl(
+            //    this.templatePath('assets/css/README.md'),
+            //    this.destinationPath('app/assets/css/README.md'), {
+            //        appName: this.appName
+            //    }
+            //);
+            //
+            //this.fs.copyTpl(
+            //    this.templatePath('assets/lib/README.md'),
+            //    this.destinationPath('app/assets/lib/README.md'), {
+            //        appName: this.appName
+            //    }
+            //);
 
             //COMPONENTS
 
