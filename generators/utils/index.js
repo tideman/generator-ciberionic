@@ -3,6 +3,5 @@
  */
 module.exports = {
     welcome: require('./welcome'),
-    plugins: require('./plugins'),
-    starters: require('./starters')
+    plugins: require('./plugins')
 }

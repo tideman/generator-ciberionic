@@ -71,20 +71,6 @@ module.exports = yeoman.Base.extend({
                 this.plugins = props.plugins;
                 done();
             }.bind(this));
-        },
-        askForStarter: function askForStarter() {
-            var done = this.async();
-            this.log('starter');
-            this.prompt([{
-                type: 'list',
-                name: 'starter',
-                message: 'Which starter template would you like to use?',
-                choices: _.pluck(utils.starters.templates, 'name'),
-                default: 0
-            }], function (props) {
-                this.starter = _.find(utils.starters.templates, { name: props.starter });
-                done();
-            }.bind(this));
         }
     },
     configuring: {
@@ -158,16 +144,17 @@ module.exports = yeoman.Base.extend({
             }
         },
 
-        createProjectStructure: function createProjectStructure() {
-            this.log('Create project structure');
-            //var done = this.async();
+        createRootStructure: function createRootStructure() {
+            this.log('Create root structure');
+
             //this.directory('hooks', 'hooks');
 
             mkdirp('app', function (err) {
-                if (err) console.error(err)
-                else console.log('created app folder');
-            });
+                if (err) this.log(err)
+                else this.log('Created app folder');
+            }.bind(this));
 
+            //overwrite config.xml with ejs-ed one
             this.fs.copyTpl(
                 this.templatePath('_config.xml'),
                 this.destinationPath('./config.xml'),
@@ -175,12 +162,6 @@ module.exports = yeoman.Base.extend({
                     userName: this.userName,
                     userEmail: this.userEmail,
                     widgetId: this.appId }
-            );
-
-            this.fs.copyTpl(
-                this.templatePath('index.html'),
-                this.destinationPath('app/index.html'),
-                { title: this.appName, ngModulName: s.classify(this.appName)}
             );
 
             this.fs.copyTpl(
@@ -202,9 +183,143 @@ module.exports = yeoman.Base.extend({
 
         },
 
+        createProject: function createProject() {
+            this.fs.copyTpl(
+                this.templatePath('index.html'),
+                this.destinationPath('app/index.html'),
+                { title: this.appName, ngModulName: s.classify(this.appName)}
+            );
+
+            this.fs.copyTpl(
+                this.templatePath('_app.modules.js'),
+                this.destinationPath('app/app.modules.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+
+            this.directory('scss', 'app/scss', true);
+
+            //ASSETS
+            this.fs.copyTpl(
+                this.templatePath('assets/js/README.md'),
+                this.destinationPath('app/assets/js/README.md'), {
+                    appName: this.appName
+                }
+            );
+
+            this.fs.copyTpl(
+                this.templatePath('assets/css/README.md'),
+                this.destinationPath('app/assets/css/README.md'), {
+                    appName: this.appName
+                }
+            );
+
+            this.fs.copyTpl(
+                this.templatePath('assets/lib/README.md'),
+                this.destinationPath('app/assets/lib/README.md'), {
+                    appName: this.appName
+                }
+            );
+
+            //COMPONENTS
+
+            ////CORE
+            this.fs.copyTpl(
+                this.templatePath('components/core/_core.config.js'),
+                this.destinationPath('app/core/core.config.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/core/_core.constants.js'),
+                this.destinationPath('app/core/core.contstants.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/core/_core.module.js'),
+                this.destinationPath('app/core/core.module.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/core/_core.route.js'),
+                this.destinationPath('app/core/core.route.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+
+
+            ////LAYOUT
+            this.fs.copyTpl(
+                this.templatePath('components/layout/_layout.controller.js'),
+                this.destinationPath('app/layout/layout.controller.js'),
+                { ngModulName: s.classify(this.appName)}
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/layout/_layout.html'),
+                this.destinationPath('app/layout/layout.html')
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/layout/_layout.module.js'),
+                this.destinationPath('app/layout/layout.module.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/layout/_layout.route.js'),
+                this.destinationPath('app/layout/layout.route.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
+
+
+            //SERVICES
+            this.fs.copyTpl(
+                this.templatePath('components/common/services/_services.module.js'),
+                this.destinationPath('app/common/services/services_module.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/common/services/app-storage/_app-storage.constants.js'),
+                this.destinationPath('app/common/services/app-storage/app-storage.constants.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/common/services/app-storage/_app-storage.module.js'),
+                this.destinationPath('app/common/services/app-storage/app-storage.module.js')
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/common/services/app-storage/_app-storage.constants.js'),
+                this.destinationPath('app/common/services/app-storage/app-storage.contstants.js')
+            );
+
+            //MODELS
+            this.fs.copyTpl(
+                this.templatePath('components/common/models/_models.module.js'),
+                this.destinationPath('app/common/models/models.module.js')
+            );
+
+            //DASHBOARD
+            this.fs.copyTpl(
+                this.templatePath('components/dashboard/_dashboard.config.js'),
+                this.destinationPath('app/dashboard/dashboard.config.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/dashboard/_dashboard.controller.js'),
+                this.destinationPath('app/dashboard/dashboard.controller.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/dashboard/_dashboard.html'),
+                this.destinationPath('app/dashboard/dashboard.html')
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/dashboard/_dashboard.module.js'),
+                this.destinationPath('app/dashboard/dashboard.module.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
+            this.fs.copyTpl(
+                this.templatePath('components/dashboard/_dashboard.route.js'),
+                this.destinationPath('app/dashboard/dashboard.route.js'),
+                { ngModulName: s.classify(this.appName) }
+            );
 
 
 
+        },
 
         installPlugins: function installPlugins() {
             console.log(chalk.yellow('\nInstall plugins registered at plugins.cordova.io: ') + chalk.green('grunt plugin:add:org.apache.cordova.globalization'));
@@ -225,33 +340,6 @@ module.exports = yeoman.Base.extend({
                     process.exit(1);
                 }
             }
-        },
-
-        installStarter: function installStarter() {
-            this.log(chalk.yellow('Installing starter template. Please wait'));
-            //var done = this.async();
-            //
-            //var callback = function (error, remote) {
-            //    if (error) {
-            //        done(error);
-            //    }
-            //
-            //    // Template remote initialization: Copy from remote root folder (.) to working directory (/app)
-            //    remote.directory('.', 'app');
-            //
-            //    this.starterCache = remote.cachePath;
-            //    done();
-            //}.bind(this);
-            //this.log('THIS STARTER: ', this.starter);
-            //if (this.starter && this.starter.path) {
-            //    this.log(chalk.bgYellow(chalk.black('WARN')) +
-            //        chalk.magenta(' Getting the template from a local path.  This should only be used for developing new templates.'));
-            //    this.remoteDir(this.starter.path, callback);
-            //} else if (this.starter.url) {
-            //    this.remote(this.starter.url, callback, true);
-            //} else {
-            //    this.remote(this.starter.user, this.starter.repo, 'master', callback, true);
-            //}
         }
     },
 

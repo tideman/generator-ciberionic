@@ -68,31 +68,31 @@ gulp.task('styles', function() {
 
   var options = build ? { style: 'compressed' } : { style: 'expanded' };
 
-  var sassStream = gulp.src('app/styles/main.scss')
-    .pipe(plugins.sass(options))
-    .on('error', function(err) {
-      console.log('err: ', err);
-      beep();
-    });
+  var sassStream = gulp.src('app/scss/main.scss')
+      .pipe(plugins.sass(options))
+      .on('error', function(err) {
+        console.log('err: ', err);
+        beep();
+      });
 
   // build ionic css dynamically to support custom themes
-  var ionicStream = gulp.src('app/styles/ionic-styles.scss')
-    .pipe(plugins.cached('ionic-styles'))
-    .pipe(plugins.sass(options))
-    // cache and remember ionic .scss in order to cut down re-compile time
-    .pipe(plugins.remember('ionic-styles'))
-    .on('error', function(err) {
+  var ionicStream = gulp.src('app/scss/ionic-styles.scss')
+      .pipe(plugins.cached('ionic-styles'))
+      .pipe(plugins.sass(options))
+      // cache and remember ionic .scss in order to cut down re-compile time
+      .pipe(plugins.remember('ionic-styles'))
+      .on('error', function(err) {
         console.log('err: ', err);
         beep();
       });
 
   return streamqueue({ objectMode: true }, ionicStream, sassStream)
-    .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
-    .pipe(plugins.concat('main.css'))
-    .pipe(plugins.if(build, plugins.stripCssComments()))
-    .pipe(plugins.if(build && !emulate, plugins.rev()))
-    .pipe(gulp.dest(path.join(targetDir, 'styles')))
-    .on('error', errorHandler);
+      .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
+      .pipe(plugins.concat('main.css'))
+      .pipe(plugins.if(build, plugins.stripCssComments()))
+      .pipe(plugins.if(build && !emulate, plugins.rev()))
+      .pipe(gulp.dest(path.join(targetDir, 'assets/css')))
+      .on('error', errorHandler);
 });
 
 
@@ -193,7 +193,7 @@ gulp.task('vendor', function() {
     .pipe(plugins.if(build, plugins.uglify()))
     .pipe(plugins.if(build, plugins.rev()))
 
-    .pipe(gulp.dest(targetDir))
+    .pipe(gulp.dest(targetDir + '/assets/lib'))
 
     .on('error', errorHandler);
 });
@@ -203,7 +203,7 @@ gulp.task('vendor', function() {
 gulp.task('index', ['jsHint', 'scripts'], function() {
 
   // build has a '-versionnumber' suffix
-  var cssNaming = 'styles/main*';
+  var cssNaming = 'assets/csss/main*';
 
   // injects 'src' into index.html at position 'tag'
   var _inject = function(src, tag) {
@@ -226,7 +226,7 @@ gulp.task('index', ['jsHint', 'scripts'], function() {
     // inject css
     .pipe(_inject(gulp.src(cssNaming, { cwd: targetDir }), 'app-styles'))
     // inject vendor.js
-    .pipe(_inject(gulp.src('vendor*.js', { cwd: targetDir }), 'vendor'))
+    .pipe(_inject(gulp.src('assets/lib/vendor*.js', { cwd: targetDir }), 'vendor'))
     // inject app.js (build) or all js files indivually (dev)
     .pipe(plugins.if(build,
       _inject(gulp.src('scripts/app*.js', { cwd: targetDir }), 'app'),

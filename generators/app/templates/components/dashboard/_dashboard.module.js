@@ -1,0 +1,11 @@
+(function() {
+    'use strict';
+
+angular
+  .module('<%= ngModulName %>.dashboard', [
+
+  ])
+
+;
+
+})(); // End Strict

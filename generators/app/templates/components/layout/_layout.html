@@ -1,0 +1,43 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="appContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <div class="menu-header" ui-sref="app.userprofile" menu-close>
+        <img ng-src="{{layout.user.avatar}}" class="avatar-menu">
+      </div>
+    </div>
+    <ion-content class="menu-top-offset">
+      <ion-list>
+        <ion-item menu-close class="menu-positive text-center" ui-sref="app.userprofile">
+          <b>{{ layout.user.name }}</b>
+        </ion-item>
+        <ion-item menu-close ui-sref="app.dashboard">
+          Purchase Orders
+        </ion-item>
+        <ion-item menu-close ui-sref="app.userprofile">
+          Profile
+        </ion-item>
+        <ion-item menu-close ui-sref="app.useroptions">
+          Options
+        </ion-item>
+        <ion-item menu-close ui-sref="app.help">
+          Help
+        </ion-item>
+        <ion-item menu-close ng-click="layout.logout()">
+          Logout
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
