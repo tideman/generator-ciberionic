@@ -8,6 +8,6 @@
   route.$inject = ['$urlRouterProvider'];
 
   function route($urlRouterProvider) {
-    $urlRouterProvider.otherwise('app');
+    $urlRouterProvider.otherwise('app/dashboard');
   }
 })();
