@@ -9,7 +9,7 @@
   function route($stateProvider) {
     $stateProvider
     .state('app.dashboard', {
-      url: 'dashboard',
+      url: '/dashboard',
       views: {
         'appContent': {
           templateUrl: 'dashboard/dashboard.html',
