@@ -14,14 +14,6 @@ angular
     /**
      * Feature areas
      */
-     //'app.device',
-     //'app.useroptions',
-     //'app.userprofile',
-     //'app.dashboard',
-     //'app.purchase-order',
-     //'app.help',
-     //'app.appload',
-     //'app.login',
-
+    '<%= ngModulName %>.dashboard',
   ]);
 })(); // End Strict
