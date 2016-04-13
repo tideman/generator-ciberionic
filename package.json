@@ -1,6 +1,6 @@
 {
   "name": "generator-ciberionic",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Projectstructure, devtools and taskrunners for a Ciber Ionic project",
   "homepage": "ciber.com",
   "author": {
