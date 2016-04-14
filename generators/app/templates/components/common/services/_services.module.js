@@ -1,11 +1,9 @@
-(function() {
-    'use strict';
+/* global angular*/
+(function () {
+  'use strict';
 
-    angular
-        .module('common.services', [
-            'common.appstorage'
-        ])
-
-    ;
-
+  angular
+    .module('common.services', [
+      'common.appstorage'
+    ]);
 })(); // End Strict

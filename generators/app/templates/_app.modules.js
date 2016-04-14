@@ -1,19 +1,19 @@
-(function() {
-    'use strict';
+/* global angular */
+(function () {
+  'use strict';
 
-angular
-  .module('<%= ngModulName %>', [
+  angular
+    .module('<%= ngModulName %>', [
     /**
      * Everybody has access to these.
      */
-    'ionic',
-    '<%= ngModulName %>.core',
-    //'app.run',
-    '<%= ngModulName %>.layout',
+      'ionic',
+      '<%= ngModulName %>.core',
+      '<%= ngModulName %>.layout',
 
     /**
      * Feature areas
      */
-    '<%= ngModulName %>.dashboard',
-  ]);
+      '<%= ngModulName %>.dashboard'
+    ]);
 })(); // End Strict

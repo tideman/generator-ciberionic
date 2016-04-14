@@ -1,11 +1,7 @@
-(function() {
-    'use strict';
+/* global angular*/
+(function () {
+  'use strict';
 
-angular
-  .module('<%= ngModulName %>.dashboard', [
-
-  ])
-
-;
-
+  angular
+    .module('<%= ngModulName %>.dashboard', []);
 })(); // End Strict

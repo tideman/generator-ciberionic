@@ -1,4 +1,5 @@
-(function() {
+/* global angular */
+(function () {
   'use strict';
 
   angular
@@ -10,23 +11,18 @@
   function LayoutCtrl($window, $state) {
     var layout = this;
 
-    console.log( 'LayoutCtrl' );
+    console.log('LayoutCtrl');
 
     activate();
 
     function activate() {
-
       console.log('activate');
-
 
       return layout;
     }
 
-
-   layout.logout = function () {
-     $state.go('login');
-   };
+    layout.logout = function () {
+      $state.go('login');
+    };
   }
-
-
 })();

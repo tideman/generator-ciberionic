@@ -1,7 +1,7 @@
-(function() {
-        'use strict';
+/* global angular*/
+(function () {
+  'use strict';
 
-        angular
-            .module('common.models', []);
-
+  angular
+    .module('common.models', []);
 })(); // End Strict

@@ -5,16 +5,17 @@
  * The controller for the Dashboard
  *
  */
-(function() {
+/* global angular */
+(function () {
   'use strict';
 
   angular
     .module('<%= ngModulName %>.dashboard')
     .controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = [ '$ionicLoading', '$scope','$timeout'];
+  DashboardCtrl.$inject = ['$ionicLoading', '$scope', '$timeout'];
 
-  function DashboardCtrl( $ionicLoading, $scope, $timeout) {
+  function DashboardCtrl($ionicLoading, $scope, $timeout) {
     var dashboard = this;
     dashboard.idSelectedTable = null;
     dashboard.lastupdate = false;
@@ -22,27 +23,24 @@
     activate();
 
     function activate() {
-      console.log( 'DashboardCtrl Loaded' );
+      console.log('DashboardCtrl Loaded');
       // Show Loading
       $ionicLoading.show({
         template: '<ion-spinner icon="spiral"></ion-spinner>'
       });
       $timeout($ionicLoading.hide(), 3000);
-
     }
 
-
     dashboard.setSelected = function (idSelectedTable) {
-       dashboard.idSelectedTable = idSelectedTable;
+      dashboard.idSelectedTable = idSelectedTable;
     };
 
-    dashboard.clearSearch = function() {
+    dashboard.clearSearch = function () {
       dashboard.search = '';
     };
 
-    dashboard.doRefresh = function(){
+    dashboard.doRefresh = function () {
       console.log('Do refresh');
     };
-
   }
 })();
