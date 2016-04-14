@@ -1,6 +1,8 @@
 # generator-ciberionic [![NPM version][npm-image]][npm-url] [![travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > Projectstructure, devtools and taskrunners for a Ciber Ionic project
 
+![generator-ciberionic](other/keyboard.gif)
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-ciberionic using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
