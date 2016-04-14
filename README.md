@@ -1,4 +1,4 @@
-# generator-ciberionic [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-ciberionic [![NPM version][npm-image]][npm-url] [travis-image][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > Projectstructure, devtools and taskrunners for a Ciber Ionic project
 
 ## Installation
