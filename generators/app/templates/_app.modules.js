@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc overview
@@ -31,8 +31,7 @@
     /**
      * Feature areas
      */
-      '<%= ngModulName %>.dashboard',
-
+      '<%= ngModulName %>.dashboard'
 
     ]);
 })(); // End Strict

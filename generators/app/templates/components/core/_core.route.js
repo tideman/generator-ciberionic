@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc object
@@ -20,6 +20,6 @@
 
   // Set the $urlRouterProvider.otherwise to the default state defined in the CORECONSTANTS.DEFAULT_URL
   function route($urlRouterProvider, CORECONSTANTS) {
-    $urlRouterProvider.otherwise( CORECONSTANTS.DEFAULT_URL );
+    $urlRouterProvider.otherwise(CORECONSTANTS.DEFAULT_URL);
   }
 })();

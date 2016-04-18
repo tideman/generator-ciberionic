@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
   * @ngdoc object
@@ -13,5 +13,5 @@
   */
   angular
     .module('<%=ngModulName %>.core.appload')
-    .config(function( ){});
+    .config(function () {});
 })();

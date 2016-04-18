@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
   * @ngdoc object
@@ -20,7 +20,7 @@
 
   function route($stateProvider, APPLOADCONSTANTS) {
     $stateProvider
-    .state( APPLOADCONSTANTS.ROUTE.STATE, {
+    .state(APPLOADCONSTANTS.ROUTE.STATE, {
       url: APPLOADCONSTANTS.ROUTE.URL,
       templateUrl: APPLOADCONSTANTS.ROUTE.TEMPLATEURL,
       controller: APPLOADCONSTANTS.ROUTE.CONTROLLER,

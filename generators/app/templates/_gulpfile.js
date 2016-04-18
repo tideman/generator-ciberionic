@@ -67,15 +67,14 @@ gulp.task('ngdocs', [], function () {
       'bower_components/angular/angular.min.js.map',
       'bower_components/angular-animate/angular-animate.min.js',
       'bower_components/angular-animate/angular-animate.min.js.map',
-      'bower_components/marked/lib/marked.js',
+      'bower_components/marked/lib/marked.js'
     ]
   };
 
   return gulp.src(['./.tmp/scripts/**/*'])
-    .pipe(ngDocs.process( ngdocsOptions ))
+    .pipe(ngDocs.process(ngdocsOptions))
     .pipe(gulp.dest('./docs'));
 });
-
 
 // clean target dir
 gulp.task('clean', function (done) {

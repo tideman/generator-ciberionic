@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
   * @ngdoc object
@@ -20,6 +20,6 @@
         TEMPLATEURL: 'core/appload/appload.html',
         CONTROLLER: 'ApploadCtrl',
         CONTROLLERAS: 'appload'
-      },
+      }
     });
 })();

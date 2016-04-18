@@ -1,5 +1,5 @@
 /* global angular*/
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc overview
@@ -13,16 +13,16 @@
   angular
     .module('service.securestorage')
     .constant('APPSTORAGECONSTANTS', {
-      GENERAL:{
+      GENERAL: {
         SERVICENAME: 'nl.niekheezemans.kodi'
       },
-      IOS:{
+      IOS: {
 
       },
-      ANDROID:{
+      ANDROID: {
 
       },
-      BROWSER:{
+      BROWSER: {
 
       }
     });

@@ -1,5 +1,5 @@
 /* global angular*/
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc overview
@@ -11,10 +11,5 @@
    * <p>This module allows to define all the service modules used in the App</p>
    */
   angular
-  .module('service.securestorage', [
-
-  ])
-
-  ;
-
+  .module('service.securestorage', []);
 })(); // End Strict

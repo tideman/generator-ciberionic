@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
   * @ngdoc overview
@@ -11,10 +11,5 @@
   * <p>This module allows to define and control the parent nav-view in this Ionic App</p>
   */
   angular
-  .module('<%=ngModulName %>.core.layout', [
-
-  ])
-
-  ;
-
+  .module('<%=ngModulName %>.core.layout', []);
 })(); // End Strict

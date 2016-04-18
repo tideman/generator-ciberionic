@@ -1,4 +1,5 @@
-(function() {
+/* global angular */
+(function () {
   'use strict';
   /**
    * @ngdoc object
@@ -12,6 +13,6 @@
   angular
     .module('<%=ngModulName %>.core')
     .constant('CORECONSTANTS', {
-      DEFAULT_URL: 'appload', // Default url used in the core.route.js for $urlRouterProvider.otherwise
+      DEFAULT_URL: 'appload' // Default url used in the core.route.js for $urlRouterProvider.otherwise
     });
 })();

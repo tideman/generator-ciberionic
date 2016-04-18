@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc object
@@ -20,7 +20,7 @@
       .state('<%=ngModulName %>.dashboard', {
         url: 'dashboard',
         views: {
-          'appContent': {
+          appContent: {
             templateUrl: 'dashboard/dashboard.html',
             controller: 'DashboardCtrl',
             controllerAs: 'dashboard'

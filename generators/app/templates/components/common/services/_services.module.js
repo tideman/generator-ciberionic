@@ -1,5 +1,5 @@
 /* global angular*/
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc overview
@@ -15,7 +15,8 @@
       /* Angular Modules */
 
       /* Cross App Modules */
-      'service.securestorage',
+      'service.securestorage'
+
       /* 3rd-party Modules */
     ]);
 })(); // End Strict

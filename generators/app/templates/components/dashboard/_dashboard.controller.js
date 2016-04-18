@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
    * @ngdoc controller
@@ -27,7 +27,6 @@
     activateDashboard();
 
     function activateDashboard() {
-
       return dashboard;
     }
   }

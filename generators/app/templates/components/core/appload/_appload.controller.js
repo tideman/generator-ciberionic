@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
   'use strict';
   /**
   * @ngdoc controller
@@ -29,11 +29,11 @@
 
     function activateAppload() {
       // Wait until IonicPlatform is ready
-      $ionicPlatform.ready(function() {
+      $ionicPlatform.ready(function () {
         /**
          * Check if this is a device or browser
          */
-        if ($window.cordova){
+        if ($window.cordova) {
           console.log('cordova check => device');
           $state.go('<%= ngModulName%>.dashboard');
         } else {
