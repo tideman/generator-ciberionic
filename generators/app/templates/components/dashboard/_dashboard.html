@@ -1,50 +1,13 @@
 <ion-view view-title="Dashboard" class="screen_Dashboard">
 	<ion-content>
-		<ion-refresher pulling-text="Pull to refresh..." on-refresh="dashboard.doRefresh()"></ion-refresher>
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh=""></ion-refresher>
 		<div class="item item-input custom-search">
 			<label class="item-input-wrapper">
 				<i class="icon ion-search placeholder-icon"></i>
-				<input type="text" placeholder="Search by Vendor - PO# - Products" ng-model="dashboard.search">
+				<input type="text" placeholder="Search by Vendor - PO# - Products" ng-model="">
 			</label>
-			<button class="button ion-close input-button button-small" ng-click="dashboard.clearSearch()" ng-if="dashboard.search.length"></button>
-
+			<button class="button ion-close input-button button-small"></button>
 		</div>
-		<div class="last-update" ng-show="dashboard.lastupdate">
-			Last update: {{ dashboard.lastupdate | date:'dd-MM-yyyy, HH:mmu'}}
-		</div>
-		<div class="ph-table" ng-repeat="(objectKey, order) in dashboard.orders | filter:dashboard.search" ui-sref="app.purchase-order({id: order.PurchId})">
-			<table ng-click="dashboard.setSelected(order.PurchId)" ng-class="{selectedTable: order.PurchId === dashboard.idSelectedTable}">
-				<tbody>
-				<tr>
-					<td>Vendor</td>
-					<td>{{order.VendorName}}</td>
-					<td rowspan="5"><i class="icon ion-chevron-right placeholder-icon"></i></td>
-				</tr>
-				<tr>
-					<td>PO #</td>
-					<td>{{order.PurchId}}</td>
-				</tr>
-				<tr>
-					<td>Products</td>
-					<td>{{order.parmLines.length}}</td>
-				</tr>
-				<tr>
-					<td>Items in PO</td>
-					<td>{{order.totalOrderd}}</td>
-				</tr>
-				<tr>
-					<td>Items remain</td>
-					<td>{{order.totalRemaining}}</td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="card" ng-show="(dashboard.orders | filter:dashboard.search).length == 0">
-			<div class="item item-text-wrap">
-				<h2>No Results</h2>
-				<p>
-					No Purchase Orders found! </p>
-			</div>
-		</div>
+    <div class="item">dashboard</div>
 	</ion-content>
 </ion-view>

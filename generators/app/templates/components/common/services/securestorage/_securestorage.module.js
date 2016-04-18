@@ -1,17 +1,20 @@
 /* global angular*/
 (function() {
   'use strict';
-
   /**
    * @ngdoc overview
-   * @name dashboard
+   * @name core.services
    * @requires <%=ngModulName %>
    * @requires core
    * @description
-   * <h1>Dashboard</h1>
-   * <p>This is the Dashboard (or Home)page for the App. It displays lalalalal</p>
+   * <h1>Core Services</h1>
+   * <p>This module allows to define all the service modules used in the App</p>
    */
-
   angular
-    .module('<%=ngModulName %>.dashboard', []);
+  .module('service.securestorage', [
+
+  ])
+
+  ;
+
 })(); // End Strict

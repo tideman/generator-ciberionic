@@ -15,6 +15,7 @@ var streamqueue = require('streamqueue');
 var runSequence = require('run-sequence');
 var ripple = require('ripple-emulator');
 var wiredep = require('wiredep');
+var ngDocs = require('gulp-ngdocs');
 
 /**
  * Parse arguments
@@ -55,6 +56,26 @@ var errorHandler = function (error) {
     plugins.util.log(error);
   }
 };
+
+gulp.task('ngdocs', [], function () {
+  var ngdocsOptions = {
+    title: "<%= appName %>",
+    startPage: '/api/app',
+    html5Mode: true,
+    scripts: [
+      'bower_components/angular/angular.min.js',
+      'bower_components/angular/angular.min.js.map',
+      'bower_components/angular-animate/angular-animate.min.js',
+      'bower_components/angular-animate/angular-animate.min.js.map',
+      'bower_components/marked/lib/marked.js',
+    ]
+  };
+
+  return gulp.src(['./.tmp/scripts/**/*'])
+    .pipe(ngDocs.process( ngdocsOptions ))
+    .pipe(gulp.dest('./docs'));
+});
+
 
 // clean target dir
 gulp.task('clean', function (done) {
@@ -107,15 +128,14 @@ gulp.task('scripts', function () {
   // prepare angular template cache from html templates
   // (remember to change appName var to desired module name)
   var templateStream = gulp
-    .src('**/*.html', {cwd: 'app'})
+    .src(['**/*.html', '!index.html'], {cwd: 'app'})
     .pipe(plugins.angularTemplatecache('templates.js', {
       module: appName,
       htmlmin: build && minifyConfig
     }));
 
   var scriptStream = gulp
-    .src(['templates.js', 'app.js', '**/*.js'], {cwd: 'app'})
-
+    .src(['templates.js', '**/*.js'], {cwd: 'app'})
     .pipe(plugins.if(!build, plugins.changed(dest)));
 
   return streamqueue({objectMode: true}, scriptStream, templateStream)
@@ -210,19 +230,25 @@ gulp.task('index', ['jsHint', 'scripts'], function () {
       "core/core.constants.js",
       "core/core.config.js",
       "core/core.route.js",
-      "layout/layout.module.js",
-      "layout/layout.config.js",
-      "layout/layout.route.js",
-      "layout/layout.controller.js",
-      "common/services/app-storage/app-storage.module.js",
-      "common/services/app-storage/app-storage.constants.js",
-      "common/services/app-storage/app-storage.service.js",
+      "core/appload/appload.module.js",
+      "core/appload/appload.constants.js",
+      "core/appload/appload.config.js",
+      "core/appload/appload.controller.js",
+      "core/appload/appload.route.js",
+      "core/appload/appload.run.js",
+      "core/layout/layout.module.js",
+      "core/layout/layout.config.js",
+      "core/layout/layout.route.js",
+      "core/layout/layout.controller.js",
+      "common/models/models.module.js",
+      "common/services/services.module.js",
+      "common/services/securestorage/securestorage.module.js",
+      "common/services/securestorage/securestorage.constants.js",
+      "common/services/securestorage/securestorage.service.js",
       "dashboard/dashboard.module.js",
       "dashboard/dashboard.config.js",
       "dashboard/dashboard.route.js",
       "dashboard/dashboard.controller.js",
-      "common/models/models.module.js",
-      "common/models/services.module.js",
       "app.modules.js",
       "**/*.js"
     ]));
@@ -301,9 +327,9 @@ gulp.task('watchers', function () {
   gulp.watch('app/fonts/**', ['fonts']);
   gulp.watch('app/icons/**', ['iconfont']);
   gulp.watch('app/images/**', ['images']);
-  gulp.watch('app/scripts/**/*.js', ['index']);
+  gulp.watch('app/**/*.js', ['index']);
   gulp.watch('./bower.json', ['vendor']);
-  gulp.watch('app/templates/**/*.html', ['index']);
+  gulp.watch('app/**/*.html', ['index']);
   gulp.watch('app/index.html', ['index']);
   gulp.watch(targetDir + '/**')
     .on('change', plugins.livereload.changed)

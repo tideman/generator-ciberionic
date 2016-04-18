@@ -1,11 +1,16 @@
 /* global angular */
-(function () {
+(function() {
   'use strict';
-
+  /**
+   * @ngdoc object
+   * @name core.config
+   * @description
+   * <h1>Core Config</h1>
+   * <p>Configure the Core module here</p>
+   * @requires <%=ngModulName %>
+   * @requires core
+   */
   angular
-    .module('<%= ngModulName %>.core')
-    .config(function ($ionicConfigProvider) {
-      // Always align the title in the center
-      $ionicConfigProvider.navBar.alignTitle('center');
-    });
+    .module('<%=ngModulName %>.core')
+    .config(function( ){});
 })();

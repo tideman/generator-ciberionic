@@ -173,7 +173,7 @@ module.exports = yeoman.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_gulpfile.js'),
         this.destinationPath('./gulpfile.js'),
-        {ngModulName: s.classify(this.appName)}
+        { appName: this.appName, ngModulName: s.classify(this.appName)}
       );
     },
 
@@ -187,12 +187,10 @@ module.exports = yeoman.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_app.modules.js'),
         this.destinationPath('app/app.modules.js'),
-        {ngModulName: s.classify(this.appName)}
+        {appName: this.appName, ngModulName: s.classify(this.appName)}
       );
 
       this.directory('scss', 'app/scss', true);
-
-      // COMPONENTS
 
       // CORE
       this.fs.copyTpl(
@@ -216,49 +214,100 @@ module.exports = yeoman.Base.extend({
         {ngModulName: s.classify(this.appName)}
       );
 
-      // LAYOUT
+      // CORE LAYOUT
       this.fs.copyTpl(
-        this.templatePath('components/layout/_layout.controller.js'),
-        this.destinationPath('app/layout/layout.controller.js'),
+        this.templatePath('components/core/layout/_layout.config.js'),
+        this.destinationPath('app/core/layout/layout.config.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/layout/_layout.html'),
-        this.destinationPath('app/layout/layout.html')
-      );
-      this.fs.copyTpl(
-        this.templatePath('components/layout/_layout.module.js'),
-        this.destinationPath('app/layout/layout.module.js'),
+        this.templatePath('components/core/layout/_layout.controller.js'),
+        this.destinationPath('app/core/layout/layout.controller.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/layout/_layout.route.js'),
-        this.destinationPath('app/layout/layout.route.js'),
+        this.templatePath('components/core/layout/_layout.html'),
+        this.destinationPath('app/core/layout/layout.html')
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/layout/_layout.module.js'),
+        this.destinationPath('app/core/layout/layout.module.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/layout/_layout.route.js'),
+        this.destinationPath('app/core/layout/layout.route.js'),
         {ngModulName: s.classify(this.appName)}
       );
 
+      //CORE APPLOAD
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.config.js'),
+        this.destinationPath('app/core/appload/appload.config.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.constants.js'),
+        this.destinationPath('app/core/appload/appload.constants.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.controller.js'),
+        this.destinationPath('app/core/appload/appload.controller.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.html'),
+        this.destinationPath('app/core/appload/appload.html'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.module.js'),
+        this.destinationPath('app/core/appload/appload.module.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.route.js'),
+        this.destinationPath('app/core/appload/appload.route.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/core/appload/_appload.run.js'),
+        this.destinationPath('app/core/appload/appload.run.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+
+      // COMPONENTS
       // SERVICES
       this.fs.copyTpl(
         this.templatePath('components/common/services/_services.module.js'),
-        this.destinationPath('app/common/services/services_module.js')
+        this.destinationPath('app/common/services/services.module.js'),
+        {ngModulName: s.classify(this.appName)}
+      );
+
+
+      // SECURESTORAGE
+      this.fs.copyTpl(
+        this.templatePath('components/common/services/securestorage/_securestorage.constants.js'),
+        this.destinationPath('app/common/services/securestorage/securestorage.constants.js'),
+        {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/common/services/app-storage/_app-storage.constants.js'),
-        this.destinationPath('app/common/services/app-storage/app-storage.constants.js')
+        this.templatePath('components/common/services/securestorage/_securestorage.module.js'),
+        this.destinationPath('app/common/services/securestorage/securestorage.module.js'),
+        {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/common/services/app-storage/_app-storage.module.js'),
-        this.destinationPath('app/common/services/app-storage/app-storage.module.js')
-      );
-      this.fs.copyTpl(
-        this.templatePath('components/common/services/app-storage/_app-storage.constants.js'),
-        this.destinationPath('app/common/services/app-storage/app-storage.contstants.js')
+        this.templatePath('components/common/services/securestorage/_securestorage.service.js'),
+        this.destinationPath('app/common/services/securestorage/securestorage.service.js'),
+        {ngModulName: s.classify(this.appName)}
       );
 
       // MODELS
       this.fs.copyTpl(
         this.templatePath('components/common/models/_models.module.js'),
-        this.destinationPath('app/common/models/models.module.js')
+        this.destinationPath('app/common/models/models.module.js'),
+        {ngModulName: s.classify(this.appName)}
       );
 
       // DASHBOARD

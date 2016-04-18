@@ -1,46 +1,35 @@
-/**
- * @ngdoc
- * @name app.dashboard controller
- * @description
- * The controller for the Dashboard
- *
- */
 /* global angular */
-(function () {
+(function() {
   'use strict';
-
+  /**
+   * @ngdoc controller
+   * @name dashboard.controller:DashboardCtrl
+   * @requires <%=ngModulName %>
+   * @requires core
+   * @description
+   * <h1>Dashboard Controller</h1>
+   * <p>The Dashboard controller </p>
+   * <h2>Methods</h2>
+   *
+   */
   angular
-    .module('<%= ngModulName %>.dashboard')
+    .module('<%=ngModulName %>.dashboard')
     .controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$ionicLoading', '$scope', '$timeout'];
+  // Inject dependencies
+  DashboardCtrl.$inject = [];
 
-  function DashboardCtrl($ionicLoading, $scope, $timeout) {
+  // Start the DashboardCtrl
+  function DashboardCtrl() {
     var dashboard = this;
-    dashboard.idSelectedTable = null;
-    dashboard.lastupdate = false;
 
-    activate();
+    // Activate all methods
+    activateDashboard();
 
-    function activate() {
-      console.log('DashboardCtrl Loaded');
-      // Show Loading
-      $ionicLoading.show({
-        template: '<ion-spinner icon="spiral"></ion-spinner>'
-      });
-      $timeout($ionicLoading.hide(), 3000);
+    function activateDashboard() {
+
+      return dashboard;
     }
-
-    dashboard.setSelected = function (idSelectedTable) {
-      dashboard.idSelectedTable = idSelectedTable;
-    };
-
-    dashboard.clearSearch = function () {
-      dashboard.search = '';
-    };
-
-    dashboard.doRefresh = function () {
-      console.log('Do refresh');
-    };
   }
 })();
+

@@ -11,11 +11,19 @@
    * <p>This module allows to define all the service modules used in the App</p>
    */
   angular
-    .module('<%=ngModulName %>.core.services', [
-      /* Angular Modules */
+    .module('service.securestorage')
+    .constant('APPSTORAGECONSTANTS', {
+      GENERAL:{
+        SERVICENAME: 'nl.niekheezemans.kodi'
+      },
+      IOS:{
 
-      /* Cross App Modules */
-      'service.securestorage',
-      /* 3rd-party Modules */
-    ]);
-})(); // End Strict
+      },
+      ANDROID:{
+
+      },
+      BROWSER:{
+
+      }
+    });
+})();
