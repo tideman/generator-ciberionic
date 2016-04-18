@@ -173,7 +173,7 @@ module.exports = yeoman.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_gulpfile.js'),
         this.destinationPath('./gulpfile.js'),
-        { appName: this.appName, ngModulName: s.classify(this.appName)}
+        {appName: this.appName, ngModulName: s.classify(this.appName)}
       );
     },
 
@@ -284,7 +284,6 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('app/common/services/services.module.js'),
         {ngModulName: s.classify(this.appName)}
       );
-
 
       // SECURESTORAGE
       this.fs.copyTpl(
