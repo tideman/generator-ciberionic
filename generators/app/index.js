@@ -240,7 +240,7 @@ module.exports = yeoman.Base.extend({
         {ngModulName: s.classify(this.appName)}
       );
 
-      //CORE APPLOAD
+      // CORE APPLOAD
       this.fs.copyTpl(
         this.templatePath('components/core/appload/_appload.config.js'),
         this.destinationPath('app/core/appload/appload.config.js'),
