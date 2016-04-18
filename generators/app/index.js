@@ -185,6 +185,11 @@ module.exports = yeoman.Base.extend({
       );
 
       this.fs.copyTpl(
+        this.templatePath('_README.md'),
+        this.destinationPath('app/README.md')
+      );
+
+      this.fs.copyTpl(
         this.templatePath('_app.modules.js'),
         this.destinationPath('app/app.modules.js'),
         {appName: this.appName, ngModulName: s.classify(this.appName)}
