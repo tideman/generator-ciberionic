@@ -197,6 +197,12 @@ module.exports = yeoman.Base.extend({
 
       this.directory('scss', 'app/scss', true);
 
+      this.fs.copyTpl(
+        this.templatePath('icons/_own-icons-template.css'),
+        this.destinationPath('app/icons/own-icons-template.css'),
+        {appName: this.appName, ngModulName: s.classify(this.appName)}
+      );
+
       // CORE
       this.fs.copyTpl(
         this.templatePath('components/core/_core.config.js'),
