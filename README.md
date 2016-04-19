@@ -29,7 +29,8 @@ conform all the specs of a Ciber Ionic app.
 It has a development folder 'app' in which you can create all your custom code.
 
 ### The generated projectructure
-
+```
+.
 ├── README.md
 ├── .tmp
 ├── app
@@ -96,6 +97,8 @@ It has a development folder 'app' in which you can create all your custom code.
 ├── config.xml
 ├── gulpfile.js
 └── package.json
+
+```
 
 ### Styles
 Sass is used for styles and can be created in the SCSS folder.
