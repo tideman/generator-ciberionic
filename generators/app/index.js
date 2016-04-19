@@ -162,6 +162,14 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('./bower.json'), {appName: this.appName});
 
       this.fs.copyTpl(
+        this.templatePath('_.jscsrc'),
+        this.destinationPath('.jscsrc'));
+
+      this.fs.copyTpl(
+        this.templatePath('_.jshintrc'),
+        this.destinationPath('.jshintrc'));
+
+      this.fs.copyTpl(
         this.templatePath('package.json'),
         this.destinationPath('./package.json'),
         {
