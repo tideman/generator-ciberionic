@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var path = require('path');
 var sys = require('sys');
 
-var packageJSON = require('../package.json');
+var packageJSON = require('../../package.json');
 var cmd = process.platform === 'win32' ? 'cordova.cmd' : 'cordova';
 var script = path.resolve(__dirname, '../../node_modules/cordova/bin', cmd);
 
