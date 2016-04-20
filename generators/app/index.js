@@ -162,12 +162,8 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('./bower.json'), {appName: this.appName});
 
       this.fs.copyTpl(
-        this.templatePath('_.jscsrc'),
-        this.destinationPath('.jscsrc'));
-
-      this.fs.copyTpl(
         this.templatePath('_.jshintrc'),
-        this.destinationPath('.jshintrc'));
+        this.destinationPath('./.jshintrc'));
 
       this.fs.copyTpl(
         this.templatePath('package.json'),
@@ -205,11 +201,16 @@ module.exports = yeoman.Base.extend({
 
       this.directory('scss', 'app/scss', true);
 
-      this.fs.copyTpl(
-        this.templatePath('icons/_own-icons-template.css'),
-        this.destinationPath('app/icons/own-icons-template.css'),
-        {appName: this.appName, ngModulName: s.classify(this.appName)}
-      );
+      //try {
+        this.fs.copy(
+          this.templatePath('icons/_own-icons-template.css'),
+          this.destinationPath('app/icons/own-icons-template.css')
+        );
+      //}
+      //catch (e) {
+      //  this.log('the error is: ', e);
+      ///}
+
 
       // CORE
       this.fs.copyTpl(
