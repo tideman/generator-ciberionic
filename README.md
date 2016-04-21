@@ -12,7 +12,21 @@ npm install -g yo
 npm install -g generator-ciberionic
 ```
 
-Then generate your new project:
+Then generate to generate a new project.
+
+```bash
+  mkdir foo && cd $_
+```
+
+This dir has to be completely empty and shouldn't even contain hidden files
+to clean:
+
+```bash
+  rm -rf *
+  rm -rf .*
+```
+
+Then generate a new project. You will be prompted with several questions
 
 ```bash
 yo ciberionic

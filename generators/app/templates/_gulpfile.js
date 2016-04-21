@@ -1,6 +1,6 @@
 'use strict';
 
-var appName = '<%= ngModulName %>';
+var appName = '<%= appName%>';
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -37,6 +37,33 @@ var run = args.run;
 var port = args.port;
 var stripDebug = Boolean(args.stripDebug);
 var targetDir = path.resolve(build ? 'www' : '.tmp');
+
+var order = [
+  "core/core.module.js",
+  "core/core.constants.js",
+  "core/core.config.js",
+  "core/core.route.js",
+  "core/**/*.module.js",
+  "core/**/*.constants.js",
+  "core/**/*.config.js",
+  "core/**/*.controller.js",
+  "core/**/*.route.js",
+  "core/**/*.run.js",
+  "common/models/models.module.js",
+  "common/models/*.module.js",
+  "common/models/**/*.module.js",
+  "common/services/services.module.js",
+  "common/services/*.module.js",
+  "common/services/**/*.module.js",
+  "common/services/**/*.constants.js",
+  "common/services/**/*.service.js",
+  "**/*.module.js",
+  "**/*.constants.js",
+  "**/*.config.js",
+  "**/*.controller.js",
+  "**/*.route.js",
+  "app.modules.js"
+]
 
 // if we just use emualate or run without specifying platform, we assume iOS
 // in this case the value returned from yargs would just be true
@@ -134,7 +161,7 @@ gulp.task('scripts', function () {
     }));
 
   var scriptStream = gulp
-    .src(['templates.js', '**/*.js'], {cwd: 'app'})
+    .src(order, {cwd: 'app'})
     .pipe(plugins.if(!build, plugins.changed(dest)));
 
   return streamqueue({objectMode: true}, scriptStream, templateStream)
@@ -160,19 +187,19 @@ gulp.task('fonts', function () {
 // generate iconfont
 gulp.task('iconfont', function () {
   return gulp.src('app/icons/*.svg', {
-    buffer: false
-  })
-  .pipe(plugins.iconfontCss({
-    fontName: 'ownIconFont',
-    path: 'app/icons/own-icons-template.css',
-    targetPath: '../styles/own-icons.css',
-    fontPath: '../fonts/'
-  }))
-  .pipe(plugins.iconfont({
-    fontName: 'ownIconFont'
-  }))
-  .pipe(gulp.dest(path.join(targetDir, 'fonts')))
-  .on('error', errorHandler);
+      buffer: false
+    })
+    .pipe(plugins.iconfontCss({
+      fontName: 'ownIconFont',
+      path: 'app/icons/own-icons-template.css',
+      targetPath: '../styles/own-icons.css',
+      fontPath: '../fonts/'
+    }))
+    .pipe(plugins.iconfont({
+      fontName: 'ownIconFont'
+    }))
+    .pipe(gulp.dest(path.join(targetDir, 'fonts')))
+    .on('error', errorHandler);
 });
 
 // copy images
@@ -224,33 +251,8 @@ gulp.task('index', ['jsHint', 'scripts'], function () {
   // in development mode, it's better to add each file seperately.
   // it makes debugging easier.
   var _getAllScriptSources = function () {
-    var scriptStream = gulp.src('scripts/**/*.js', {cwd: targetDir}).pipe(plugins.order([
-      "core/core.module.js",
-      "core/core.constants.js",
-      "core/core.config.js",
-      "core/core.route.js",
-      "core/appload/appload.module.js",
-      "core/appload/appload.constants.js",
-      "core/appload/appload.config.js",
-      "core/appload/appload.controller.js",
-      "core/appload/appload.route.js",
-      "core/appload/appload.run.js",
-      "core/layout/layout.module.js",
-      "core/layout/layout.config.js",
-      "core/layout/layout.route.js",
-      "core/layout/layout.controller.js",
-      "common/models/models.module.js",
-      "common/services/services.module.js",
-      "common/services/securestorage/securestorage.module.js",
-      "common/services/securestorage/securestorage.constants.js",
-      "common/services/securestorage/securestorage.service.js",
-      "dashboard/dashboard.module.js",
-      "dashboard/dashboard.config.js",
-      "dashboard/dashboard.route.js",
-      "dashboard/dashboard.controller.js",
-      "app.modules.js",
-      "**/*.js"
-    ]));
+    var scriptStream = gulp.src(['scripts/**/*.js', '!scripts/**/*.spec.js'], {cwd: targetDir})
+      .pipe(plugins.order(order));
     return streamqueue({objectMode: true}, scriptStream);
   };
 
