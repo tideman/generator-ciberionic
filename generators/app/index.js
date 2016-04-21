@@ -201,16 +201,10 @@ module.exports = yeoman.Base.extend({
 
       this.directory('scss', 'app/scss', true);
 
-      //try {
-        this.fs.copy(
-          this.templatePath('icons/_own-icons-template.css'),
-          this.destinationPath('app/icons/own-icons-template.css')
-        );
-      //}
-      //catch (e) {
-      //  this.log('the error is: ', e);
-      ///}
-
+      this.fs.copy(
+        this.templatePath('icons/_own-icons-template.css'),
+        this.destinationPath('app/icons/own-icons-template.css')
+      );
 
       // CORE
       this.fs.copyTpl(
@@ -218,6 +212,7 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('app/core/core.config.js'),
         {ngModulName: s.classify(this.appName)}
       );
+
       this.fs.copyTpl(
         this.templatePath('components/core/_core.constants.js'),
         this.destinationPath('app/core/core.constants.js'),
