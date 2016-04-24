@@ -324,7 +324,7 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function () {
 // start watchers
 gulp.task('watchers', function () {
   plugins.livereload.listen();
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch('app/scss/**/*.scss', ['styles']);
   gulp.watch('app/fonts/**', ['fonts']);
   gulp.watch('app/icons/**', ['iconfont']);
   gulp.watch('app/images/**', ['images']);
