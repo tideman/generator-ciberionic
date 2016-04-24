@@ -3,6 +3,10 @@
 	"private": "true",
 	"devDependencies": {},
 	"dependencies": {
-		"ionic": "driftyco/ionic-bower#1.2.4"
-	}
+		"ionic": "driftyco/ionic-bower#1.2.4",
+    "angular-mocks": "^1.5.5"
+	},
+  "resolutions": {
+    "angular": ">= 1.0.8"
+  }
 }

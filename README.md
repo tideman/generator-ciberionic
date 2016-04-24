@@ -12,20 +12,21 @@ npm install -g yo
 npm install -g generator-ciberionic
 ```
 
-Then generate to generate a new project.
+Then generate a new project.
+First create a new folder.
 
 ```bash
   mkdir foo && cd $_
 ```
 
-This dir has to be completely empty and shouldn't even contain hidden files
-to clean:
+When using an existing folder:
+This dir has to be completely empty and shouldn't even contain hidden files.
+To clean:
 
 ```bash
   rm -rf *
   rm -rf .*
 ```
-
 Then generate a new project. You will be prompted with several questions
 
 ```bash
@@ -100,7 +101,6 @@ It has a development folder 'app' in which you can create all your custom code.
 │   │   └── deregister_plugins.js
 │   ├── after_prepare
 │   │   ├── icons_and_splashscreens.js
-│   │   └── update_platform_config.js
 │   └── before_platform_add
 │       └── init_directories.js
 ├── node_modules

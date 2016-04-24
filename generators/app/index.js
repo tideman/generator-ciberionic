@@ -34,8 +34,20 @@ module.exports = yeoman.Base.extend({
           type: 'input',
           name: 'userEmail',
           message: 'Author email? (for config files)',
-          default: this.user.git.email || 'email@example.com'
+          default: this.user.git.email || 'email@ciber.com'
 
+        },
+        {
+          type: 'input',
+          name: 'appDescription',
+          message: 'App description? (for config files)',
+          default: ' '
+        },
+        {
+          type: 'input',
+          name: 'appURL',
+          message: 'App URL? (for config files)',
+          default: ' '
         }];
 
       this.prompt(prompts, function (props) {
@@ -73,7 +85,8 @@ module.exports = yeoman.Base.extend({
       this.appName = this.appName || this.options.appName || path.basename(process.cwd());
       this.appName = s.camelize(s.slugify(s.humanize(this.appname)));
       this.appName = mout.string.pascalCase(this.appName);
-      this.appId = this.options.appId || 'com.example.' + this.appName;
+      this.appId = this.options.appId || 'com.ciber.' + this.appName;
+      this.appId = this.appId.toLowerCase();
     },
 
     setupEnv: function setupEnv() {
@@ -166,12 +179,18 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('./.jshintrc'));
 
       this.fs.copyTpl(
+        this.templatePath('_karma.conf.js'),
+        this.destinationPath('./karma.conf.js'));
+
+      this.fs.copyTpl(
         this.templatePath('package.json'),
         this.destinationPath('./package.json'),
         {
           appName: s.underscored(this.appName),
           userName: this.userName,
-          userEmail: this.userEmail
+          userEmail: this.userEmail,
+          appURL: this.appURL,
+          appDescription: this.appDescription
         }
       );
       this.fs.copyTpl(
@@ -348,6 +367,10 @@ module.exports = yeoman.Base.extend({
         this.templatePath('components/dashboard/_dashboard.route.js'),
         this.destinationPath('app/dashboard/dashboard.route.js'),
         {ngModulName: s.classify(this.appName)}
+      );
+      this.fs.copyTpl(
+        this.templatePath('components/dashboard/_dashboard.route.spec.js'),
+        this.destinationPath('app/dashboard/dashboard.route.spec.js')
       );
     },
 
