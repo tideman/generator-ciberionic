@@ -27,11 +27,13 @@ To clean:
   rm -rf *
   rm -rf .*
 ```
-Then generate a new project. You will be prompted with several questions
+Then generate a new project. 
 
 ```bash
 yo ciberionic
 ```
+You will be prompted with several questions. One of it is if you would like to overwrite the config.xml.
+Choose 'yes' or hit enter.
 
 ## CiberIonic Scaffold
 
