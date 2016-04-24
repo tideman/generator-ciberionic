@@ -88,8 +88,8 @@ module.exports = {
       name: 'nl.ciber.touchid',
       checked: false
     }, {
-      value: 'https://github.com/shazron/KeychainPlugin.git',
-      name: 'com.shazron.cordova.plugin.keychainutil',
+      value: 'cordova-keychain',
+      name: 'cordova-keychain',
       checked: false
     }]
   }]
