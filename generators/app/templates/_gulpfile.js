@@ -16,6 +16,7 @@ var runSequence = require('run-sequence');
 var ripple = require('ripple-emulator');
 var wiredep = require('wiredep');
 var ngDocs = require('gulp-ngdocs');
+var fs = require('fs');
 
 /**
  * Parse arguments
@@ -39,31 +40,20 @@ var stripDebug = Boolean(args.stripDebug);
 var targetDir = path.resolve(build ? 'www' : '.tmp');
 
 var order = [
-  "core/core.module.js",
-  "core/core.constants.js",
-  "core/core.config.js",
-  "core/core.route.js",
-  "core/**/*.module.js",
-  "core/**/*.constants.js",
-  "core/**/*.config.js",
-  "core/**/*.controller.js",
-  "core/**/*.route.js",
-  "core/**/*.run.js",
-  "common/models/models.module.js",
-  "common/models/*.module.js",
-  "common/models/**/*.module.js",
-  "common/services/services.module.js",
-  "common/services/*.module.js",
-  "common/services/**/*.module.js",
-  "common/services/**/*.constants.js",
-  "common/services/**/*.service.js",
-  "**/*.module.js",
-  "**/*.constants.js",
-  "**/*.config.js",
-  "**/*.controller.js",
-  "**/*.route.js",
-  "app.modules.js"
-]
+  'core/core.module.js',
+    'core/*.js',
+    'core/**/*.module.js',
+    'core/**/*.js',
+  'common/models/models.module.js',
+    'common/models/**/*.module.js',
+    'common/models/**/*.js',
+  'common/services/services.module.js',
+    'common/services/**/*.module.js',
+    'common/services/**/*.js',
+  '**/*.module.js',
+  '**/*.js',
+  'app.module.js'
+];
 
 // if we just use emualate or run without specifying platform, we assume iOS
 // in this case the value returned from yargs would just be true
@@ -83,6 +73,24 @@ var errorHandler = function (error) {
     plugins.util.log(error);
   }
 };
+
+// Check if the ionic.project listens to the right folder
+gulp.task('ionicProject', function () {
+  // Read the contents of the ionic.project file
+  return fs.readFile( 'ionic.project' , 'utf-8', function(err, data) {
+      // Parse the Contents as JSON
+    var ionicProject = JSON.parse( data );
+
+    // Check if the documentRoot is set
+    if( !ionicProject.documentRoot ){
+      ionicProject.documentRoot = '.tmp';
+    }
+    if( !ionicProject.watchPatterns ){
+      ionicProject.watchPatterns = ['.tmp/**/*','!tmp/assets/lib/**/*'];
+    }
+    fs.writeFile('ionic.project', JSON.stringify(ionicProject));
+  });
+});
 
 gulp.task('ngdocs', [], function () {
   var ngdocsOptions = {
@@ -271,15 +279,10 @@ gulp.task('index', ['jsHint', 'scripts'], function () {
     .on('error', errorHandler);
 });
 
-// start local express server
-gulp.task('serve', function () {
-  express()
-    .use(build ? function () {
-    } : connectLr())
-    .use(express.static(targetDir))
-    .listen(port);
-  open('http://localhost:' + port + '/');
-});
+// Run the ionic serve
+gulp.task('ionic:serve', plugins.shell.task([
+  'ionic serve'
+]));
 
 // ionic emulate wrapper
 gulp.task('ionic:emulate', plugins.shell.task([
@@ -344,6 +347,7 @@ gulp.task('noop', function () {
 // our main sequence, with some conditional jobs depending on params
 gulp.task('default', function (done) {
   runSequence(
+    'ionicProject',
     'clean',
     'iconfont',
     [
@@ -353,8 +357,7 @@ gulp.task('default', function (done) {
       'vendor'
     ],
     'index',
-    build ? 'noop' : 'watchers',
-    build ? 'noop' : 'serve',
+    build ? 'noop' : ['watchers', 'ionic:serve'],
     emulate ? ['ionic:emulate', 'watchers'] : 'noop',
     run ? 'ionic:run' : 'noop',
     done);
