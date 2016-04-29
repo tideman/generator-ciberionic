@@ -1,0 +1,12 @@
+{
+  "name":"<%=appName%>",
+  "app_id":"<%=AppId%>",
+  "proxies":[
+    {
+      "path":"/api",
+      "proxyUrl":"http://example.com/api"
+    }
+  ],
+  "documentRoot":".tmp",
+  "watchPatterns":[".tmp/**/*",".tmp/assets/lib/**/*"]
+}

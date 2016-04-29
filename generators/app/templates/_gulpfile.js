@@ -1,6 +1,6 @@
 'use strict';
 
-var appName = '<%= appName%>';
+var appName = '<%=appName%>';
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -40,19 +40,17 @@ var stripDebug = Boolean(args.stripDebug);
 var targetDir = path.resolve(build ? 'www' : '.tmp');
 
 var order = [
-  'core/core.module.js',
-    'core/*.js',
-    'core/**/*.module.js',
-    'core/**/*.js',
-  'common/models/models.module.js',
-    'common/models/**/*.module.js',
-    'common/models/**/*.js',
-  'common/services/services.module.js',
-    'common/services/**/*.module.js',
-    'common/services/**/*.js',
   '**/*.module.js',
-  '**/*.js',
-  'app.module.js'
+  '**/*.constant.js',
+  '**/*.config.js',
+  '**/*.run.js',
+  '**/*.service.js',
+  '**/*.factory.js',
+  '**/*.model.js',
+  '**/*.directive.js',
+  '**/*.filter.js',
+  '**/*.controller.js',
+  '**/*.route.js',
 ];
 
 // if we just use emualate or run without specifying platform, we assume iOS
@@ -74,27 +72,9 @@ var errorHandler = function (error) {
   }
 };
 
-// Check if the ionic.project listens to the right folder
-gulp.task('ionicProject', function () {
-  // Read the contents of the ionic.project file
-  return fs.readFile( 'ionic.project' , 'utf-8', function(err, data) {
-      // Parse the Contents as JSON
-    var ionicProject = JSON.parse( data );
-
-    // Check if the documentRoot is set
-    if( !ionicProject.documentRoot ){
-      ionicProject.documentRoot = '.tmp';
-    }
-    if( !ionicProject.watchPatterns ){
-      ionicProject.watchPatterns = ['.tmp/**/*','!tmp/assets/lib/**/*'];
-    }
-    fs.writeFile('ionic.project', JSON.stringify(ionicProject));
-  });
-});
-
 gulp.task('ngdocs', [], function () {
   var ngdocsOptions = {
-    title: "<%= appName %>",
+    title: '<%=appName%>',
     startPage: '/api/app',
     html5Mode: true,
     scripts: [
@@ -186,9 +166,7 @@ gulp.task('scripts', function () {
 gulp.task('fonts', function () {
   return gulp
     .src(['app/fonts/*.*', 'bower_components/ionic/fonts/*.*'])
-
     .pipe(gulp.dest(path.join(targetDir, 'assets/fonts')))
-
     .on('error', errorHandler);
 });
 
@@ -214,7 +192,6 @@ gulp.task('iconfont', function () {
 gulp.task('images', function () {
   return gulp.src('app/images/**/*.*')
     .pipe(gulp.dest(path.join(targetDir, 'images')))
-
     .on('error', errorHandler);
 });
 
@@ -230,14 +207,11 @@ gulp.task('jsHint', function () {
 // concatenate and minify vendor sources
 gulp.task('vendor', function () {
   var vendorFiles = wiredep().js;
-
   return gulp.src(vendorFiles)
     .pipe(plugins.concat('vendor.js'))
     .pipe(plugins.if(build, plugins.uglify()))
     .pipe(plugins.if(build, plugins.rev()))
-
     .pipe(gulp.dest(targetDir + '/assets/lib'))
-
     .on('error', errorHandler);
 });
 
@@ -245,7 +219,6 @@ gulp.task('vendor', function () {
 gulp.task('index', ['jsHint', 'scripts'], function () {
   // build has a '-versionnumber' suffix
   var cssNaming = 'assets/css/main*';
-
   // injects 'src' into index.html at position 'tag'
   var _inject = function (src, tag) {
     return plugins.inject(src, {
@@ -280,7 +253,7 @@ gulp.task('index', ['jsHint', 'scripts'], function () {
 });
 
 // Run the ionic serve
-gulp.task('ionic:serve', plugins.shell.task([
+gulp.task('serve', plugins.shell.task([
   'ionic serve'
 ]));
 
@@ -317,10 +290,8 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function () {
     open: true,
     port: 4400
   };
-
   // Start the ripple server
   ripple.emulate.start(options);
-
   open('http://localhost:' + options.port + '?enableripple=true');
 });
 
@@ -347,7 +318,6 @@ gulp.task('noop', function () {
 // our main sequence, with some conditional jobs depending on params
 gulp.task('default', function (done) {
   runSequence(
-    'ionicProject',
     'clean',
     'iconfont',
     [
@@ -357,7 +327,8 @@ gulp.task('default', function (done) {
       'vendor'
     ],
     'index',
-    build ? 'noop' : ['watchers', 'ionic:serve'],
+    build ? 'noop' : 'watchers',
+    build ? 'noop' : 'serve',
     emulate ? ['ionic:emulate', 'watchers'] : 'noop',
     run ? 'ionic:run' : 'noop',
     done);
