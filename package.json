@@ -50,7 +50,6 @@
   },
   "repository": "tideman/generator-ciberionic",
   "scripts": {
-    "prepublish": "gulp prepublish",
     "test": "gulp"
   },
   "license": "MIT"
