@@ -288,40 +288,40 @@ module.exports = yeoman.Base.extend({
         {ngModulName: s.classify(this.appName)}
       );
 
-      // CORE APPLOAD
+      // APPLOAD
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.config.js'),
-        this.destinationPath('app/core/appload/appload.config.js'),
+        this.templatePath('components/appload/_appload.config.js'),
+        this.destinationPath('app/appload/appload.config.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.constant.js'),
-        this.destinationPath('app/core/appload/appload.constant.js'),
+        this.templatePath('components/appload/_appload.constant.js'),
+        this.destinationPath('app/appload/appload.constant.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.controller.js'),
-        this.destinationPath('app/core/appload/appload.controller.js'),
+        this.templatePath('components/appload/_appload.controller.js'),
+        this.destinationPath('app/appload/appload.controller.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.html'),
-        this.destinationPath('app/core/appload/appload.html'),
+        this.templatePath('components/appload/_appload.html'),
+        this.destinationPath('app/appload/appload.html'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.module.js'),
-        this.destinationPath('app/core/appload/appload.module.js'),
+        this.templatePath('components/appload/_appload.module.js'),
+        this.destinationPath('app/appload/appload.module.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.route.js'),
-        this.destinationPath('app/core/appload/appload.route.js'),
+        this.templatePath('components/appload/_appload.route.js'),
+        this.destinationPath('app/appload/appload.route.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.run.js'),
-        this.destinationPath('app/core/appload/appload.run.js'),
+        this.templatePath('components/appload/_appload.run.js'),
+        this.destinationPath('app/appload/appload.run.js'),
         {ngModulName: s.classify(this.appName)}
       );
 

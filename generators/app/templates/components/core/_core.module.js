@@ -41,8 +41,6 @@
       /* Cross App Modules */
       '<%= ngModulName %>.core.models',
       '<%= ngModulName %>.core.services',
-
-      '<%= ngModulName %>.core.appload',
       '<%= ngModulName %>.core.layout'
       /* 3rd-party Modules */
     ]);

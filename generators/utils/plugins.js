@@ -22,11 +22,11 @@ module.exports = {
     }, {
       value: 'cordova-plugin-splashscreen',
       name: 'cordova-plugin-splashscreen',
-      checked: false
+      checked: true
     }, {
       value: 'cordova-plugin-statusbar',
       name: 'cordova-plugin-statusbar',
-      checked: false
+      checked: true
     }, {
       value: 'cordova-plugin-battery-status',
       name: 'cordova-plugin-battery-status',
@@ -48,7 +48,7 @@ module.exports = {
       name: 'cordova-plugin-device-orientation',
       checked: false
     }, {
-      value: 'https://github.com/apache/cordova-plugin-camera.git',
+      value: 'cordova-plugin-camera',
       name: 'cordova-plugin-camera',
       checked: false
     }, {
@@ -90,7 +90,7 @@ module.exports = {
     }, {
       value: 'cordova-keychain',
       name: 'cordova-keychain',
-      checked: false
+      checked: true
     }]
   }]
 };
