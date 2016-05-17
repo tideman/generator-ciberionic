@@ -1,11 +1,9 @@
-<widget id="<%=widgetId%>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
-		xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name><%=appName%>
-	</name>
+<widget id="<%=widgetId%>" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+	<name><%=appName%></name>
 	<description>
-		<%=appName%>
+		<%=appDescription%>
 	</description>
-	<author email="<%=userEmail%>" href="http://cordova.io">
+	<author email="<%=userEmail%>" href="<%=appURL%>">
 		<%=userName%>
 	</author>
 	<content src="index.html"/>

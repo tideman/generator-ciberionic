@@ -1,6 +1,6 @@
 'use strict';
 
-var appName = '<%= appName%>';
+var appName = '<%=appName%>';
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -16,6 +16,7 @@ var runSequence = require('run-sequence');
 var ripple = require('ripple-emulator');
 var wiredep = require('wiredep');
 var ngDocs = require('gulp-ngdocs');
+var fs = require('fs');
 
 /**
  * Parse arguments
@@ -39,31 +40,18 @@ var stripDebug = Boolean(args.stripDebug);
 var targetDir = path.resolve(build ? 'www' : '.tmp');
 
 var order = [
-  "core/core.module.js",
-  "core/core.constants.js",
-  "core/core.config.js",
-  "core/core.route.js",
-  "core/**/*.module.js",
-  "core/**/*.constants.js",
-  "core/**/*.config.js",
-  "core/**/*.controller.js",
-  "core/**/*.route.js",
-  "core/**/*.run.js",
-  "common/models/models.module.js",
-  "common/models/*.module.js",
-  "common/models/**/*.module.js",
-  "common/services/services.module.js",
-  "common/services/*.module.js",
-  "common/services/**/*.module.js",
-  "common/services/**/*.constants.js",
-  "common/services/**/*.service.js",
-  "**/*.module.js",
-  "**/*.constants.js",
-  "**/*.config.js",
-  "**/*.controller.js",
-  "**/*.route.js",
-  "app.modules.js"
-]
+  '**/*.module.js',
+  '**/*.constant.js',
+  '**/*.config.js',
+  '**/*.run.js',
+  '**/*.service.js',
+  '**/*.factory.js',
+  '**/*.model.js',
+  '**/*.directive.js',
+  '**/*.filter.js',
+  '**/*.controller.js',
+  '**/*.route.js',
+];
 
 // if we just use emualate or run without specifying platform, we assume iOS
 // in this case the value returned from yargs would just be true
@@ -86,7 +74,7 @@ var errorHandler = function (error) {
 
 gulp.task('ngdocs', [], function () {
   var ngdocsOptions = {
-    title: "<%= appName %>",
+    title: '<%=appName%>',
     startPage: '/api/app',
     html5Mode: true,
     scripts: [
@@ -178,9 +166,7 @@ gulp.task('scripts', function () {
 gulp.task('fonts', function () {
   return gulp
     .src(['app/fonts/*.*', 'bower_components/ionic/fonts/*.*'])
-
     .pipe(gulp.dest(path.join(targetDir, 'assets/fonts')))
-
     .on('error', errorHandler);
 });
 
@@ -206,7 +192,6 @@ gulp.task('iconfont', function () {
 gulp.task('images', function () {
   return gulp.src('app/images/**/*.*')
     .pipe(gulp.dest(path.join(targetDir, 'images')))
-
     .on('error', errorHandler);
 });
 
@@ -222,14 +207,11 @@ gulp.task('jsHint', function () {
 // concatenate and minify vendor sources
 gulp.task('vendor', function () {
   var vendorFiles = wiredep().js;
-
   return gulp.src(vendorFiles)
     .pipe(plugins.concat('vendor.js'))
     .pipe(plugins.if(build, plugins.uglify()))
     .pipe(plugins.if(build, plugins.rev()))
-
     .pipe(gulp.dest(targetDir + '/assets/lib'))
-
     .on('error', errorHandler);
 });
 
@@ -237,7 +219,6 @@ gulp.task('vendor', function () {
 gulp.task('index', ['jsHint', 'scripts'], function () {
   // build has a '-versionnumber' suffix
   var cssNaming = 'assets/css/main*';
-
   // injects 'src' into index.html at position 'tag'
   var _inject = function (src, tag) {
     return plugins.inject(src, {
@@ -271,15 +252,10 @@ gulp.task('index', ['jsHint', 'scripts'], function () {
     .on('error', errorHandler);
 });
 
-// start local express server
-gulp.task('serve', function () {
-  express()
-    .use(build ? function () {
-    } : connectLr())
-    .use(express.static(targetDir))
-    .listen(port);
-  open('http://localhost:' + port + '/');
-});
+// Run the ionic serve
+gulp.task('serve', plugins.shell.task([
+  'ionic serve'
+]));
 
 // ionic emulate wrapper
 gulp.task('ionic:emulate', plugins.shell.task([
@@ -314,10 +290,8 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function () {
     open: true,
     port: 4400
   };
-
   // Start the ripple server
   ripple.emulate.start(options);
-
   open('http://localhost:' + options.port + '?enableripple=true');
 });
 

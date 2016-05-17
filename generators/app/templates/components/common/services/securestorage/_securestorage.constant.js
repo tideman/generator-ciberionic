@@ -2,10 +2,8 @@
 (function () {
   'use strict';
   /**
-   * @ngdoc overview
-   * @name core.services
-   * @requires <%=ngModulName %>
-   * @requires core
+   * @ngdoc object
+   * @name securestorage.constant:APPSTORAGECONSTANTS
    * @description
    * <h1>Core Services</h1>
    * <p>This module allows to define all the service modules used in the App</p>

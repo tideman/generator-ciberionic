@@ -3,18 +3,17 @@
   'use strict';
   /**
   * @ngdoc object
-  * @name core.appload.route
+  * @name appload.route
   * @requires <%=ngModulName %>
-  * @requires core
-  * @requires core.appload
-  * @requires core.constants
+  * @requires https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stateprovider-1
+  * @requires appload.constant:APPLOADCONSTANTS
   * @description
   * <h1>Core Appload Route</h1>
   * <p>This module configures the route, views, controllers and templates used by this module.</p>
-  * <p>!Important: Define the Route Options in the appload.constants.js file</p>
+  * <p>!Important: Define the Route Options in the Constants file for this module</p>
   */
   angular
-    .module('<%=ngModulName %>.core.appload')
+    .module('<%=ngModulName %>.appload')
     .config(route);
   route.$inject = ['$stateProvider', 'APPLOADCONSTANTS'];
 

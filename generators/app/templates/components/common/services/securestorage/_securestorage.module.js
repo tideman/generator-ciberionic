@@ -3,13 +3,14 @@
   'use strict';
   /**
    * @ngdoc overview
-   * @name core.services
-   * @requires <%=ngModulName %>
-   * @requires core
+   * @name securestorage
    * @description
-   * <h1>Core Services</h1>
-   * <p>This module allows to define all the service modules used in the App</p>
+   * <h1>Secure Storage</h1>
+   * <p>This module allows data to be securely stored in the iOS KeyChain or Android KeyStore</p>
    */
   angular
-  .module('service.securestorage', []);
-})(); // End Strict
+  .module('service.securestorage', [
+    // Inject dependencies here
+    
+  ]);
+})();

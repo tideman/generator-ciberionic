@@ -25,13 +25,14 @@
     /**
      * Everybody has access to these. Some of these modules like the app.core module have child modules.
      */
-      'ionic',
-      '<%= ngModulName %>.core',
+     'ionic',
+     '<%= ngModulName %>.core',
 
     /**
      * Feature areas
      */
-      '<%= ngModulName %>.dashboard'
+     '<%= ngModulName %>.appload',
+     '<%= ngModulName %>.dashboard'
 
     ]);
-})(); // End Strict
+})();

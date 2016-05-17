@@ -17,18 +17,37 @@
     .controller('DashboardCtrl', DashboardCtrl);
 
   // Inject dependencies
-  DashboardCtrl.$inject = [];
+  DashboardCtrl.$inject = [ '$ionicPopup' ];
 
   // Start the DashboardCtrl
-  function DashboardCtrl() {
+  function DashboardCtrl( $ionicPopup ) {
     var dashboard = this;
 
     // Activate all methods
     activateDashboard();
 
     function activateDashboard() {
+
+      // Function to skip the intro
+      dashboard.popUp = function(){
+        var popUp = $ionicPopup.confirm({
+          title: 'CiberIonic',
+          template: 'Welcome to your App created with the CiberIonic Generator! Who is your biggest Hero?',
+          buttons: [
+            { text : 'Niek' },
+            {
+              text : 'Tijmen',
+              onTap: function(){
+                alert( 'You have chosen Niek! Well done ;)' );
+              }
+            }
+          ]
+        });
+      };
+      // Open Popup
+      dashboard.popUp();
+
       return dashboard;
     }
   }
 })();
-

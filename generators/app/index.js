@@ -41,17 +41,19 @@ module.exports = yeoman.Base.extend({
           type: 'input',
           name: 'appDescription',
           message: 'App description? (for config files)',
-          default: ' '
+          default: 'This App is build with CiberIonic Generator!'
         },
         {
           type: 'input',
           name: 'appURL',
-          message: 'App URL? (for config files)',
-          default: ' '
+          message: 'What`s your website URL?',
+          default: 'http://www.ciber.nl'
         }];
 
       this.prompt(prompts, function (props) {
         this.appName = props.appName;
+        this.appDescription = props.appDescription;
+        this.appURL = props.appURL;
         this.ngModulName = s.classify(this.appName);
         this.userName = props.userName;
         this.userEmail = props.userEmail;
@@ -164,6 +166,8 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('./config.xml'),
         {
           appName: this.appName,
+          appDescription: this.appDescription,
+          appURL: this.appURL,
           userName: this.userName,
           userEmail: this.userEmail,
           widgetId: this.appId
@@ -213,8 +217,17 @@ module.exports = yeoman.Base.extend({
       );
 
       this.fs.copyTpl(
-        this.templatePath('_app.modules.js'),
-        this.destinationPath('app/app.modules.js'),
+        this.templatePath('_ionic.project'),
+        this.destinationPath('ionic.project'),
+        {
+          appName: this.appName,
+          AppId: this.appId
+        }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_app.module.js'),
+        this.destinationPath('app/app.module.js'),
         {appName: this.appName, ngModulName: s.classify(this.appName)}
       );
 
@@ -233,8 +246,8 @@ module.exports = yeoman.Base.extend({
       );
 
       this.fs.copyTpl(
-        this.templatePath('components/core/_core.constants.js'),
-        this.destinationPath('app/core/core.constants.js'),
+        this.templatePath('components/core/_core.constant.js'),
+        this.destinationPath('app/core/core.constant.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
@@ -261,7 +274,8 @@ module.exports = yeoman.Base.extend({
       );
       this.fs.copyTpl(
         this.templatePath('components/core/layout/_layout.html'),
-        this.destinationPath('app/core/layout/layout.html')
+        this.destinationPath('app/core/layout/layout.html'),
+        {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
         this.templatePath('components/core/layout/_layout.module.js'),
@@ -274,40 +288,40 @@ module.exports = yeoman.Base.extend({
         {ngModulName: s.classify(this.appName)}
       );
 
-      // CORE APPLOAD
+      // APPLOAD
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.config.js'),
-        this.destinationPath('app/core/appload/appload.config.js'),
+        this.templatePath('components/appload/_appload.config.js'),
+        this.destinationPath('app/appload/appload.config.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.constants.js'),
-        this.destinationPath('app/core/appload/appload.constants.js'),
+        this.templatePath('components/appload/_appload.constant.js'),
+        this.destinationPath('app/appload/appload.constant.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.controller.js'),
-        this.destinationPath('app/core/appload/appload.controller.js'),
+        this.templatePath('components/appload/_appload.controller.js'),
+        this.destinationPath('app/appload/appload.controller.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.html'),
-        this.destinationPath('app/core/appload/appload.html'),
+        this.templatePath('components/appload/_appload.html'),
+        this.destinationPath('app/appload/appload.html'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.module.js'),
-        this.destinationPath('app/core/appload/appload.module.js'),
+        this.templatePath('components/appload/_appload.module.js'),
+        this.destinationPath('app/appload/appload.module.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.route.js'),
-        this.destinationPath('app/core/appload/appload.route.js'),
+        this.templatePath('components/appload/_appload.route.js'),
+        this.destinationPath('app/appload/appload.route.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(
-        this.templatePath('components/core/appload/_appload.run.js'),
-        this.destinationPath('app/core/appload/appload.run.js'),
+        this.templatePath('components/appload/_appload.run.js'),
+        this.destinationPath('app/appload/appload.run.js'),
         {ngModulName: s.classify(this.appName)}
       );
 
@@ -321,8 +335,8 @@ module.exports = yeoman.Base.extend({
 
       // SECURESTORAGE
       this.fs.copyTpl(
-        this.templatePath('components/common/services/securestorage/_securestorage.constants.js'),
-        this.destinationPath('app/common/services/securestorage/securestorage.constants.js'),
+        this.templatePath('components/common/services/securestorage/_securestorage.constant.js'),
+        this.destinationPath('app/common/services/securestorage/securestorage.constant.js'),
         {ngModulName: s.classify(this.appName)}
       );
       this.fs.copyTpl(

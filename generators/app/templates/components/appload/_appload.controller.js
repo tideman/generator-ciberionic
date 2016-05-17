@@ -3,31 +3,32 @@
   'use strict';
   /**
   * @ngdoc controller
-  * @name core.appload.controller:ApploadCtrl
-  * @requires <%=ngModulName %>
-  * @requires core
-  * @requires core.appload
-  * @requires core.appload.constants
+  * @name appload.controller:ApploadCtrl
+  * @requires http://ionicframework.com/docs/api/utility/ionic.Platform/
+  * @requires https://docs.angularjs.org/api/ng/service/$window
+  * @requires https://github.com/angular-ui/ui-router/wiki/Quick-Reference#state-1
+  * @requires appload.constant:APPLOADCONSTANTS
   * @description
   * <h1>Core Appload Controller</h1>
   * <p>The Core Appload Controller allows you to control the functionalities on App Startup before going to the Dashboard or Homepage.</p>
   * <p>Comes in handy when f.e. you would like to, for example, verify a networkconnection or verify a session.</p>
   */
   angular
-    .module('<%=ngModulName %>.core.appload')
+    .module('<%=ngModulName %>.appload')
     .controller('ApploadCtrl', ApploadCtrl);
 
   // Inject dependencies
-  ApploadCtrl.$inject = ['$ionicPlatform', '$window', 'APPLOADCONSTANTS', '$state'];
+  ApploadCtrl.$inject = ['$ionicPlatform', '$window', '$state', 'APPLOADCONSTANTS'];
 
   // Start the DashboardCtrl
-  function ApploadCtrl($ionicPlatform, $window, APPLOADCONSTANTS, $state) {
+  function ApploadCtrl($ionicPlatform, $window, $state, APPLOADCONSTANTS) {
     var appload = this;
 
-    // Activate all methods
-    activateAppload();
+    // Activate the Controller
+    activateCtrl();
 
-    function activateAppload() {
+    // This function is called on start
+    function activateCtrl() {
       // Wait until IonicPlatform is ready
       $ionicPlatform.ready(function () {
         /**
